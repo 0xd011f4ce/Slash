@@ -13,6 +13,18 @@ AItem::BeginPlay ()
   Super::BeginPlay ();
 }
 
+float
+AItem::TransformedSine ()
+{
+  return Amplitude * FMath::Sin (RunningTime * TimeConstant);
+}
+
+float
+AItem::TransformedCosine ()
+{
+  return Amplitude * FMath::Cos (RunningTime * TimeConstant);
+}
+
 void
 AItem::Tick (float DeltaTime)
 {
@@ -20,8 +32,8 @@ AItem::Tick (float DeltaTime)
 
   RunningTime += DeltaTime;
 
-  float DeltaZ = Amplitude * FMath::Sin (RunningTime * TimeConstant);
-  AddActorWorldOffset (FVector (0.f, 0.f, DeltaZ));
+  // float DeltaZ = Amplitude * FMath::Sin (RunningTime * TimeConstant);
+  // AddActorWorldOffset (FVector (0.f, 0.f, DeltaZ));
 
   FVector Location = GetActorLocation ();
   FVector Forward = GetActorForwardVector ();
