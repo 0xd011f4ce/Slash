@@ -930,6 +930,18 @@
 			"Type": "SymbolFile"
 		},
 		{
+			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-CEF3Utils.debug",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-CEF3Utils.so",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-CEF3Utils.sym",
+			"Type": "SymbolFile"
+		},
+		{
 			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-CSVtoSVG.debug",
 			"Type": "SymbolFile"
 		},
@@ -4998,6 +5010,18 @@
 			"Type": "SymbolFile"
 		},
 		{
+			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-WebBrowser.debug",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-WebBrowser.so",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-WebBrowser.sym",
+			"Type": "SymbolFile"
+		},
+		{
 			"Path": "$(EngineDir)/Binaries/Linux/libUnrealEditor-WidgetCarousel.debug",
 			"Type": "SymbolFile"
 		},
@@ -5379,6 +5403,34 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Animation/IKRig/Binaries/Linux/libUnrealEditor-IKRigEditor.sym",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Bridge/Binaries/Linux/UnrealEditor.modules",
+			"Type": "RequiredResource"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Bridge/Binaries/Linux/libUnrealEditor-Bridge.debug",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Bridge/Binaries/Linux/libUnrealEditor-Bridge.so",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Bridge/Binaries/Linux/libUnrealEditor-Bridge.sym",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Bridge/Binaries/Linux/libUnrealEditor-MegascansPlugin.debug",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Bridge/Binaries/Linux/libUnrealEditor-MegascansPlugin.so",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Bridge/Binaries/Linux/libUnrealEditor-MegascansPlugin.sym",
 			"Type": "SymbolFile"
 		},
 		{
@@ -6851,6 +6903,22 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Experimental/MeshModelingToolsetExp/Binaries/Linux/libUnrealEditor-SkeletalMeshModifiers.sym",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Experimental/MetaHuman/MetaHumanProjectUtilities/Binaries/Linux/UnrealEditor.modules",
+			"Type": "RequiredResource"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Experimental/MetaHuman/MetaHumanProjectUtilities/Binaries/Linux/libUnrealEditor-MetaHumanProjectUtilities.debug",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Experimental/MetaHuman/MetaHumanProjectUtilities/Binaries/Linux/libUnrealEditor-MetaHumanProjectUtilities.so",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Experimental/MetaHuman/MetaHumanProjectUtilities/Binaries/Linux/libUnrealEditor-MetaHumanProjectUtilities.sym",
 			"Type": "SymbolFile"
 		},
 		{
@@ -9122,6 +9190,10 @@
 		{
 			"Path": "$(EngineDir)/Binaries/Linux/AgentInterface.pdb",
 			"Type": "DebugNonUFS"
+		},
+		{
+			"Path": "$(EngineDir)/Binaries/Linux/EpicWebHelper",
+			"Type": "NonUFS"
 		},
 		{
 			"Path": "$(EngineDir)/Binaries/Linux/libOpenColorIO.so",
@@ -25020,6 +25092,10 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(EngineDir)/Plugins/Bridge/Bridge.uplugin",
+			"Type": "UFS"
+		},
+		{
 			"Path": "$(EngineDir)/Plugins/Cameras/CameraShakePreviewer/CameraShakePreviewer.uplugin",
 			"Type": "UFS"
 		},
@@ -25305,6 +25381,10 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/Experimental/MeshModelingToolsetExp/MeshModelingToolsetExp.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(EngineDir)/Plugins/Experimental/MetaHuman/MetaHumanProjectUtilities/MetaHumanProjectUtilities.uplugin",
 			"Type": "UFS"
 		},
 		{
@@ -25636,6 +25716,7 @@
 		"BaseCharacterFXEditor",
 		"BlendSpaceMotionAnalysis",
 		"BlueprintHeaderView",
+		"Bridge",
 		"CLionSourceCodeAccess",
 		"CableComponent",
 		"CameraShakePreviewer",
@@ -25708,6 +25789,7 @@
 		"MeshModelingToolset",
 		"MeshModelingToolsetExp",
 		"MeshPainting",
+		"MetaHumanProjectUtilities",
 		"Metasound",
 		"MobileLauncherProfileWizard",
 		"MobilePatchingUtils",
