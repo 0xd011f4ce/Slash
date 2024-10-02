@@ -12,18 +12,26 @@ AItem::BeginPlay ()
 {
   Super::BeginPlay ();
 
-  SetActorLocation (FVector (0.f, 0.f, 200.f));
-  SetActorRotation (FRotator (0.f, 45.f, 0.f));
-
-  FVector Location = GetActorLocation ();
-  FVector Forward = GetActorForwardVector ();
-
-  DRAW_SPHERE (Location)
-  DRAW_VECTOR (Location, Location + (Forward * 100))
+  /*SetActorLocation (FVector (0.f, 0.f, 200.f));
+  SetActorRotation (FRotator (0.f, 45.f, 0.f));*/
 }
 
 void
 AItem::Tick (float DeltaTime)
 {
   Super::Tick (DeltaTime);
+
+  // movement rate in units of cm/s
+  float MovementRate = 50.f;
+  float RotationRate = 45.f;
+
+  // movementRate * DeltaTime (cm/s) * (s/frame) = (cm/frame)
+  AddActorWorldOffset (FVector (MovementRate * DeltaTime, 0.f, 0.f));
+  AddActorWorldRotation (FRotator (0.f, RotationRate * DeltaTime, 0.f));
+
+  FVector Location = GetActorLocation ();
+  FVector Forward = GetActorForwardVector ();
+
+  DRAW_SPHERE_SingleFrame (Location);
+  DRAW_VECTOR_SingleFrame (Location, Location + (Forward * 100));
 }
