@@ -7,6 +7,10 @@
   if (GetWorld ())                                                            \
     DrawDebugSphere (GetWorld (), Location, 25.f, 12, FColor::Red, true);
 
+#define DRAW_LINE(Start, End)                                                 \
+  if (GetWorld ())                                                            \
+    DrawDebugLine (GetWorld (), Start, End, FColor::Red, true, -1.f, 0, 1.f);
+
 AItem::AItem () { PrimaryActorTick.bCanEverTick = true; }
 
 void
@@ -14,32 +18,15 @@ AItem::BeginPlay ()
 {
   Super::BeginPlay ();
 
-  if (GEngine)
-    {
-      GEngine->AddOnScreenDebugMessage (1, 60.f, FColor::Cyan,
-                                        TEXT ("We are using item!"));
-    }
+  FVector Location = GetActorLocation ();
+  FVector Forward = GetActorForwardVector ();
 
-  UWorld *World = GetWorld ();
-  if (World)
-    {
-      FVector Location = GetActorLocation ();
-      DRAW_SPHERE (Location)
-    }
+  DRAW_SPHERE (Location)
+  DRAW_LINE (Location, Location + (Forward * 100))
 }
 
 void
 AItem::Tick (float DeltaTime)
 {
   Super::Tick (DeltaTime);
-
-  UE_LOG (LogTemp, Warning, TEXT ("DeltaTime:  %f"), DeltaTime)
-
-  if (GEngine)
-    {
-      FString Name = GetName ();
-      FString Message = FString::Printf (TEXT ("Name: %s\nDeltaTime: %f"),
-                                         *Name, DeltaTime);
-      GEngine->AddOnScreenDebugMessage (1, 60.f, FColor::Red, Message);
-    }
 }
