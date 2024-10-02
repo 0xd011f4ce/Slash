@@ -8,6 +8,12 @@ void
 AItem::BeginPlay ()
 {
   Super::BeginPlay ();
+
+  if (GEngine)
+    {
+      GEngine->AddOnScreenDebugMessage (1, 60.f, FColor::Cyan,
+                                        TEXT ("We are using item!"));
+    }
 }
 
 void
