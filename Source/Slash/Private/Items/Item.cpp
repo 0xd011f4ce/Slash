@@ -11,6 +11,18 @@
   if (GetWorld ())                                                            \
     DrawDebugLine (GetWorld (), Start, End, FColor::Red, true, -1.f, 0, 1.f);
 
+#define DRAW_POINT(Location)                                                  \
+  if (GetWorld ())                                                            \
+    DrawDebugPoint (GetWorld (), Location, 15.f, FColor::Red, true);
+
+#define DRAW_VECTOR(Start, End)                                               \
+  if (GetWorld ())                                                            \
+    {                                                                         \
+      DrawDebugLine (GetWorld (), Start, End, FColor::Red, true, -1.f, 0,     \
+                     1.f);                                                    \
+      DrawDebugPoint (GetWorld (), End, 15.f, FColor::Red, true);             \
+    }
+
 AItem::AItem () { PrimaryActorTick.bCanEverTick = true; }
 
 void
@@ -22,7 +34,7 @@ AItem::BeginPlay ()
   FVector Forward = GetActorForwardVector ();
 
   DRAW_SPHERE (Location)
-  DRAW_LINE (Location, Location + (Forward * 100))
+  DRAW_VECTOR (Location, Location + (Forward * 100))
 }
 
 void
