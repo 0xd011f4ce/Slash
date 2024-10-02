@@ -12,6 +12,8 @@ AItem::BeginPlay ()
 {
   Super::BeginPlay ();
 
+  SetActorLocation (FVector (0.f, 0.f, 200.f));
+
   FVector Location = GetActorLocation ();
   FVector Forward = GetActorForwardVector ();
 
