@@ -8,8 +8,6 @@ void
 AItem::BeginPlay ()
 {
   Super::BeginPlay ();
-
-  UE_LOG (LogTemp, Warning, TEXT ("Hello, World!"))
 }
 
 void
