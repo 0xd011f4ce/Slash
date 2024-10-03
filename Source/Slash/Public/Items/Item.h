@@ -36,4 +36,6 @@ protected:
   float TransformedCosine ();
 
 private:
+  UPROPERTY (VisibleAnywhere)
+  UStaticMeshComponent *ItemMesh;
 };
