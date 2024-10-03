@@ -5,6 +5,9 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
+
 ABird::ABird ()
 {
   PrimaryActorTick.bCanEverTick = true;
@@ -25,6 +28,19 @@ void
 ABird::BeginPlay ()
 {
   Super::BeginPlay ();
+
+  // setup the input context
+  if (APlayerController *PlayerController
+      = Cast<APlayerController> (GetController ()))
+    {
+      UEnhancedInputLocalPlayerSubsystem *LocalPlayerSubsystem
+          = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem> (
+              PlayerController->GetLocalPlayer ());
+      if (LocalPlayerSubsystem)
+        {
+          LocalPlayerSubsystem->AddMappingContext (BirdMappingContext, 0);
+        }
+    }
 }
 
 void
@@ -38,4 +54,18 @@ void
 ABird::SetupPlayerInputComponent (UInputComponent *PlayerInputComponent)
 {
   Super::SetupPlayerInputComponent (PlayerInputComponent);
+
+  if (UEnhancedInputComponent *EnhancedInputComponent
+      = CastChecked<UEnhancedInputComponent> (PlayerInputComponent))
+    {
+      EnhancedInputComponent->BindAction (MoveAction, ETriggerEvent::Triggered,
+                                          this, &ABird::Move);
+    }
+}
+
+void
+ABird::Move (const FInputActionValue &Value)
+{
+  const FVector2D CurrentValue = Value.Get<FVector2D> ();
+  UE_LOG (LogTemp, Warning, TEXT ("Move: %s"), *CurrentValue.ToString ());
 }
