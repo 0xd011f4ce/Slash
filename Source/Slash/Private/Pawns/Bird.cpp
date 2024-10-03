@@ -5,6 +5,10 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 
+#include "Camera/CameraComponent.h"
+
+#include "GameFramework/SpringArmComponent.h"
+
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
@@ -20,6 +24,13 @@ ABird::ABird ()
   BirdMesh
       = CreateDefaultSubobject<USkeletalMeshComponent> (TEXT ("BirdMesh"));
   BirdMesh->SetupAttachment (GetRootComponent ());
+
+  SpringArm = CreateDefaultSubobject<USpringArmComponent> (TEXT ("SpringArm"));
+  SpringArm->TargetArmLength = 300.f;
+  SpringArm->SetupAttachment (GetRootComponent ());
+
+  ViewCamera = CreateDefaultSubobject<UCameraComponent> (TEXT ("ViewCamera"));
+  ViewCamera->SetupAttachment (SpringArm);
 
   AutoPossessPlayer = EAutoReceiveInput::Player0;
 }
