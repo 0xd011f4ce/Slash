@@ -71,6 +71,8 @@ ABird::SetupPlayerInputComponent (UInputComponent *PlayerInputComponent)
     {
       EnhancedInputComponent->BindAction (MoveAction, ETriggerEvent::Triggered,
                                           this, &ABird::Move);
+      EnhancedInputComponent->BindAction (LookAction, ETriggerEvent::Triggered,
+                                          this, &ABird::Look);
     }
 }
 
@@ -83,5 +85,16 @@ ABird::Move (const FInputActionValue &Value)
     {
       FVector Forward = GetActorForwardVector ();
       AddMovementInput (Forward, DirectionValue);
+    }
+}
+
+void
+ABird::Look (const FInputActionValue &Value)
+{
+  const FVector2D LookValue = Value.Get<FVector2D>();
+  if (GetController ())
+    {
+      AddControllerYawInput (LookValue.X);
+      AddControllerPitchInput (LookValue.Y);
     }
 }
