@@ -66,6 +66,11 @@ ABird::SetupPlayerInputComponent (UInputComponent *PlayerInputComponent)
 void
 ABird::Move (const FInputActionValue &Value)
 {
-  const FVector2D CurrentValue = Value.Get<FVector2D> ();
-  UE_LOG (LogTemp, Warning, TEXT ("Move: %s"), *CurrentValue.ToString ());
+  const float DirectionValue = Value.Get<float> ();
+
+  if (Controller && (DirectionValue != 0.f))
+    {
+      FVector Forward = GetActorForwardVector ();
+      AddMovementInput (Forward, DirectionValue);
+    }
 }
