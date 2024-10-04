@@ -11,6 +11,8 @@
 
 class UInputMappingContext;
 class UInputAction;
+class USpringArmComponent;
+class UCameraComponent;
 
 UCLASS ()
 class SLASH_API ASlashCharacter : public ACharacter
@@ -34,5 +36,16 @@ protected:
   UPROPERTY (EditAnywhere, Category = Input)
   UInputAction *MovementAction;
 
+  UPROPERTY (EditAnywhere, Category = Input)
+  UInputAction *LookAction;
+
   void Move (const FInputActionValue &Value);
+  void Turn (const FInputActionValue &Value);
+
+private:
+  UPROPERTY (VisibleAnywhere)
+  USpringArmComponent *SpringArm;
+
+  UPROPERTY (VisibleAnywhere)
+  UCameraComponent *ViewCamera;
 };
