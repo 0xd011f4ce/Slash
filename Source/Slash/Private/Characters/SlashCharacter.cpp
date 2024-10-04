@@ -11,6 +11,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
+#include "GroomComponent.h"
+
 ASlashCharacter::ASlashCharacter ()
 {
   PrimaryActorTick.bCanEverTick = true;
@@ -28,6 +30,14 @@ ASlashCharacter::ASlashCharacter ()
 
   ViewCamera = CreateDefaultSubobject <UCameraComponent> (TEXT ("ViewCamera"));
   ViewCamera->SetupAttachment (SpringArm);
+
+  Hair = CreateDefaultSubobject<UGroomComponent> (TEXT ("Hair"));
+  Hair->AttachmentName = FString ("head");
+  Hair->SetupAttachment (GetMesh ());
+
+  Eyebrows = CreateDefaultSubobject<UGroomComponent> (TEXT ("Eyebrows"));
+  Eyebrows->AttachmentName = FString ("head");
+  Eyebrows->SetupAttachment (GetMesh ());
 }
 
 void
