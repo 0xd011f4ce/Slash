@@ -51,10 +51,10 @@ protected:
                                    UPrimitiveComponent *OtherComp,
                                    int32 OtherBodyIndex);
 
-private:
-  UPROPERTY (VisibleAnywhere)
+  UPROPERTY (VisibleAnywhere, BlueprintReadOnly)
   UStaticMeshComponent *ItemMesh;
 
+private:
   UPROPERTY (VisibleAnywhere)
   USphereComponent *Sphere;
 };

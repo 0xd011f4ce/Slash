@@ -3,6 +3,8 @@
 
 #include "Items/Weapons/Weapon.h"
 
+#include "Characters/SlashCharacter.h"
+
 void
 AWeapon::OnSphereOverlap (UPrimitiveComponent *OverlappedComponent,
                           AActor *OtherActor, UPrimitiveComponent *OtherComp,
@@ -11,6 +13,15 @@ AWeapon::OnSphereOverlap (UPrimitiveComponent *OverlappedComponent,
 {
   Super::OnSphereOverlap (OverlappedComponent, OtherActor, OtherComp,
                           OtherBodyIndex, bFromSweep, SweepResult);
+
+  ASlashCharacter *SlashCharacter = Cast<ASlashCharacter> (OtherActor);
+  if (SlashCharacter)
+    {
+      FAttachmentTransformRules TransformRules (
+          EAttachmentRule::SnapToTarget, true);
+      ItemMesh->AttachToComponent (SlashCharacter->GetMesh (), TransformRules,
+                                   FName ("RightHandSocket"));
+    }
 }
 
 void
