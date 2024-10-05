@@ -39,15 +39,17 @@ protected:
   float TransformedCosine ();
 
   UFUNCTION ()
-  void OnSphereOverlap (UPrimitiveComponent *OverlappedComponent,
-                        AActor *OtherActor, UPrimitiveComponent *OtherComp,
-                        int32 OtherBodyIndex, bool bFromSweep,
-                        const FHitResult &SweepResult);
+  virtual void OnSphereOverlap (UPrimitiveComponent *OverlappedComponent,
+                                AActor *OtherActor,
+                                UPrimitiveComponent *OtherComp,
+                                int32 OtherBodyIndex, bool bFromSweep,
+                                const FHitResult &SweepResult);
 
   UFUNCTION ()
-  void
-  OnSphereEndOverlap (UPrimitiveComponent *OverlappedComp, AActor *OtherActor,
-                      UPrimitiveComponent *OtherComp, int32 OtherBodyIndex);
+  virtual void OnSphereEndOverlap (UPrimitiveComponent *OverlappedComp,
+                                   AActor *OtherActor,
+                                   UPrimitiveComponent *OtherComp,
+                                   int32 OtherBodyIndex);
 
 private:
   UPROPERTY (VisibleAnywhere)
