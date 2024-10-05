@@ -6,7 +6,7 @@
 		},
 		{
 			"name": "UE5",
-			"path": "/ext/Software/UE5"
+			"path": "/home/lain/Software/UE"
 		}
 	],
 	"settings": {
@@ -36,7 +36,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -56,7 +56,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -74,7 +74,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -91,7 +91,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -111,7 +111,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -129,7 +129,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -146,7 +146,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -166,7 +166,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -184,7 +184,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -201,7 +201,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -221,7 +221,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -239,7 +239,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -256,7 +256,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -276,7 +276,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -294,7 +294,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -311,7 +311,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -331,7 +331,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -349,7 +349,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -366,7 +366,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -386,7 +386,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -404,7 +404,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -421,7 +421,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -441,7 +441,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -459,7 +459,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -476,7 +476,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -496,7 +496,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -514,7 +514,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -531,7 +531,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -551,7 +551,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -569,7 +569,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -586,7 +586,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -606,7 +606,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -624,7 +624,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -641,7 +641,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -661,7 +661,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -679,7 +679,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -696,7 +696,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -716,7 +716,7 @@
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			},
 			{
@@ -734,7 +734,7 @@
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/ext/Software/UE5"
+					"cwd": "/home/lain/Software/UE"
 				}
 			}
 		]
@@ -749,9 +749,9 @@
 				"preLaunchTask": "Slash Linux Debug Build",
 				"args": [
 				],
-				"cwd": "/ext/Software/UE5",
+				"cwd": "/home/lain/Software/UE",
 				"type": "cppdbg",
-				"visualizerFile": "/ext/Software/UE5/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"visualizerFile": "/home/lain/Software/UE/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true
 			},
 			{
@@ -761,9 +761,9 @@
 				"preLaunchTask": "Slash Linux DebugGame Build",
 				"args": [
 				],
-				"cwd": "/ext/Software/UE5",
+				"cwd": "/home/lain/Software/UE",
 				"type": "cppdbg",
-				"visualizerFile": "/ext/Software/UE5/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"visualizerFile": "/home/lain/Software/UE/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true
 			},
 			{
@@ -773,9 +773,9 @@
 				"preLaunchTask": "Slash Linux Development Build",
 				"args": [
 				],
-				"cwd": "/ext/Software/UE5",
+				"cwd": "/home/lain/Software/UE",
 				"type": "cppdbg",
-				"visualizerFile": "/ext/Software/UE5/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"visualizerFile": "/home/lain/Software/UE/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true
 			},
 			{
@@ -785,9 +785,9 @@
 				"preLaunchTask": "Slash Linux Test Build",
 				"args": [
 				],
-				"cwd": "/ext/Software/UE5",
+				"cwd": "/home/lain/Software/UE",
 				"type": "cppdbg",
-				"visualizerFile": "/ext/Software/UE5/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"visualizerFile": "/home/lain/Software/UE/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true
 			},
 			{
@@ -797,48 +797,48 @@
 				"preLaunchTask": "Slash Linux Shipping Build",
 				"args": [
 				],
-				"cwd": "/ext/Software/UE5",
+				"cwd": "/home/lain/Software/UE",
 				"type": "cppdbg",
-				"visualizerFile": "/ext/Software/UE5/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"visualizerFile": "/home/lain/Software/UE/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true
 			},
 			{
 				"name": "Launch SlashEditor (Debug)",
 				"request": "launch",
-				"program": "/ext/Software/UE5/Engine/Binaries/Linux/UnrealEditor-Linux-Debug",
+				"program": "/home/lain/Software/UE/Engine/Binaries/Linux/UnrealEditor-Linux-Debug",
 				"preLaunchTask": "SlashEditor Linux Debug Build",
 				"args": [
 					"/home/lain/Documents/Unreal Projects/Slash/Slash.uproject"
 				],
-				"cwd": "/ext/Software/UE5",
+				"cwd": "/home/lain/Software/UE",
 				"type": "cppdbg",
-				"visualizerFile": "/ext/Software/UE5/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"visualizerFile": "/home/lain/Software/UE/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true
 			},
 			{
 				"name": "Launch SlashEditor (DebugGame)",
 				"request": "launch",
-				"program": "/ext/Software/UE5/Engine/Binaries/Linux/UnrealEditor-Linux-DebugGame",
+				"program": "/home/lain/Software/UE/Engine/Binaries/Linux/UnrealEditor-Linux-DebugGame",
 				"preLaunchTask": "SlashEditor Linux DebugGame Build",
 				"args": [
 					"/home/lain/Documents/Unreal Projects/Slash/Slash.uproject"
 				],
-				"cwd": "/ext/Software/UE5",
+				"cwd": "/home/lain/Software/UE",
 				"type": "cppdbg",
-				"visualizerFile": "/ext/Software/UE5/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"visualizerFile": "/home/lain/Software/UE/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true
 			},
 			{
 				"name": "Launch SlashEditor (Development)",
 				"request": "launch",
-				"program": "/ext/Software/UE5/Engine/Binaries/Linux/UnrealEditor",
+				"program": "/home/lain/Software/UE/Engine/Binaries/Linux/UnrealEditor",
 				"preLaunchTask": "SlashEditor Linux Development Build",
 				"args": [
 					"/home/lain/Documents/Unreal Projects/Slash/Slash.uproject"
 				],
-				"cwd": "/ext/Software/UE5",
+				"cwd": "/home/lain/Software/UE",
 				"type": "cppdbg",
-				"visualizerFile": "/ext/Software/UE5/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"visualizerFile": "/home/lain/Software/UE/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
 				"showDisplayString": true
 			},
 			{
@@ -846,7 +846,7 @@
 				"type": "coreclr",
 				"request": "launch",
 				"preLaunchTask": "UnrealBuildTool Linux Development Build",
-				"program": "/ext/Software/UE5/Engine/Build/BatchFiles/RunUBT.bat",
+				"program": "/home/lain/Software/UE/Engine/Build/BatchFiles/RunUBT.bat",
 				"args": [
 					"-projectfiles",
 					"-vscode",
@@ -858,7 +858,7 @@
 				"console": "internalConsole",
 				"internalConsoleOptions": "openOnSessionStart",
 				"stopAtEntry": false,
-				"cwd": "/ext/Software/UE5"
+				"cwd": "/home/lain/Software/UE"
 			}
 		]
 	}
