@@ -24,11 +24,11 @@ ASlashCharacter::ASlashCharacter ()
   GetCharacterMovement ()->bOrientRotationToMovement = true;
   GetCharacterMovement ()->RotationRate = FRotator (0.f, 360.f, 0.f);
 
-  SpringArm = CreateDefaultSubobject <USpringArmComponent> (TEXT ("SpringArm"));
+  SpringArm = CreateDefaultSubobject<USpringArmComponent> (TEXT ("SpringArm"));
   SpringArm->TargetArmLength = 300.f;
   SpringArm->SetupAttachment (GetRootComponent ());
 
-  ViewCamera = CreateDefaultSubobject <UCameraComponent> (TEXT ("ViewCamera"));
+  ViewCamera = CreateDefaultSubobject<UCameraComponent> (TEXT ("ViewCamera"));
   ViewCamera->SetupAttachment (SpringArm);
 
   Hair = CreateDefaultSubobject<UGroomComponent> (TEXT ("Hair"));
@@ -45,9 +45,12 @@ ASlashCharacter::BeginPlay ()
 {
   Super::BeginPlay ();
 
-  if (const APlayerController *PlayerController = Cast<APlayerController> (Controller))
+  if (const APlayerController *PlayerController = Cast<APlayerController> (
+      Controller))
     {
-      if (UEnhancedInputLocalPlayerSubsystem *Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer ()))
+      if (UEnhancedInputLocalPlayerSubsystem *Subsystem =
+          ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem> (
+              PlayerController->GetLocalPlayer ()))
         {
           Subsystem->AddMappingContext (SlashContext, 0);
         }
@@ -63,11 +66,13 @@ ASlashCharacter::Move (const FInputActionValue &Value)
   const FRotator ControlRotation = GetControlRotation ();
   const FRotator YawRotation (0.f, ControlRotation.Yaw, 0.f);
 
-  const FVector ForwardDirection = FRotationMatrix (YawRotation).GetUnitAxis (EAxis::X);
+  const FVector ForwardDirection = FRotationMatrix (YawRotation).
+      GetUnitAxis (EAxis::X);
   AddMovementInput (ForwardDirection, Direction.Y);
 
   // find out which way is right
-  const FVector RightDirection = FRotationMatrix (YawRotation).GetUnitAxis (EAxis::Y);
+  const FVector RightDirection = FRotationMatrix (YawRotation).
+      GetUnitAxis (EAxis::Y);
   AddMovementInput (RightDirection, Direction.X);
 }
 
@@ -92,9 +97,15 @@ ASlashCharacter::SetupPlayerInputComponent (
 {
   Super::SetupPlayerInputComponent (PlayerInputComponent);
 
-  if (UEnhancedInputComponent *EnhancedInputComponent = CastChecked<UEnhancedInputComponent> (PlayerInputComponent))
+  if (UEnhancedInputComponent *EnhancedInputComponent = CastChecked<
+    UEnhancedInputComponent> (PlayerInputComponent))
     {
-      EnhancedInputComponent->BindAction (MovementAction, ETriggerEvent::Triggered, this, &ASlashCharacter::Move);
-      EnhancedInputComponent->BindAction (LookAction, ETriggerEvent::Triggered, this, &ASlashCharacter::Turn);
+      EnhancedInputComponent->BindAction (MovementAction,
+                                          ETriggerEvent::Triggered, this,
+                                          &ASlashCharacter::Move);
+      EnhancedInputComponent->BindAction (LookAction, ETriggerEvent::Triggered,
+                                          this, &ASlashCharacter::Turn);
+      EnhancedInputComponent->BindAction (JumpAction, ETriggerEvent::Triggered,
+                                          this, &ACharacter::Jump);
     }
 }
