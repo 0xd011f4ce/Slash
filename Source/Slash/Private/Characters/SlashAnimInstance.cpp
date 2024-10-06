@@ -2,8 +2,8 @@
 
 
 #include "Characters/SlashAnimInstance.h"
-
 #include "Characters/SlashCharacter.h"
+
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 
@@ -29,5 +29,6 @@ USlashAnimInstance::NativeUpdateAnimation (float DeltaSeconds)
       GroundSpeed = UKismetMathLibrary::VSizeXY (
           SlashCharacterMovement->Velocity);
       IsFalling = SlashCharacterMovement->IsFalling ();
+      CharacterState = SlashCharacter->GetCharacterState ();
     }
 }
