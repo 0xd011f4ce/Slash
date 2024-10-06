@@ -25,4 +25,7 @@ protected:
                                    AActor *OtherActor,
                                    UPrimitiveComponent *OtherComp,
                                    int32 OtherBodyIndex) override;
+
+public:
+  void Equip (USceneComponent *InParent, FName InSocketName);
 };

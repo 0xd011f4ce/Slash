@@ -4,6 +4,7 @@
 #include "DrawDebugHelpers.h"
 
 #include "Components/SphereComponent.h"
+#include "Characters/SlashCharacter.h"
 
 #include "Slash/DebugMacros.h"
 
@@ -47,10 +48,9 @@ AItem::OnSphereOverlap (UPrimitiveComponent *OverlappedComponent,
                         int32 OtherBodyIndex,
                         bool bFromSweep, const FHitResult &SweepResult)
 {
-  if (GEngine)
+  if (ASlashCharacter *SlashCharacter = Cast<ASlashCharacter> (OtherActor))
     {
-      FString OtherActorName = OtherActor->GetName ();
-      GEngine->AddOnScreenDebugMessage (0, 30.f, FColor::Red, OtherActorName);
+      SlashCharacter->SetOverlappingItem (this);
     }
 }
 
@@ -59,10 +59,9 @@ AItem::OnSphereEndOverlap (UPrimitiveComponent *OverlappedComp,
                            AActor *OtherActor, UPrimitiveComponent *OtherComp,
                            int32 OtherBodyIndex)
 {
-  if (GEngine)
+  if (ASlashCharacter *SlashCharacter = Cast<ASlashCharacter> (OtherActor))
     {
-      FString OtherActorName = OtherActor->GetName ();
-      GEngine->AddOnScreenDebugMessage (0, 30.f, FColor::Cyan, OtherActorName);
+      SlashCharacter->SetOverlappingItem (nullptr);
     }
 }
 

@@ -7,6 +7,9 @@
 
 #include "Camera/CameraComponent.h"
 
+#include "Items/Item.h"
+#include "Items/Weapons/Weapon.h"
+
 #include "Components/InputComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
@@ -86,6 +89,16 @@ ASlashCharacter::Turn (const FInputActionValue &Value)
 }
 
 void
+ASlashCharacter::EquipPressed (const FInputActionValue &Value)
+{
+  AWeapon *OverlappingWeapon = Cast<AWeapon> (OverlappingItem);
+  if (OverlappingItem)
+    {
+      OverlappingWeapon->Equip (GetMesh (), FName ("RightHandSocket"));
+    }
+}
+
+void
 ASlashCharacter::Tick (float DeltaTime)
 {
   Super::Tick (DeltaTime);
@@ -107,5 +120,9 @@ ASlashCharacter::SetupPlayerInputComponent (
                                           this, &ASlashCharacter::Turn);
       EnhancedInputComponent->BindAction (JumpAction, ETriggerEvent::Triggered,
                                           this, &ACharacter::Jump);
+      EnhancedInputComponent->BindAction (EquipAction,
+                                          ETriggerEvent::Triggered,
+                                          this,
+                                          &ASlashCharacter::EquipPressed);
     }
 }
