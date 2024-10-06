@@ -14,6 +14,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
+#include "Animation/AnimMontage.h"
+
 #include "GroomComponent.h"
 
 ASlashCharacter::ASlashCharacter ()
@@ -100,6 +102,35 @@ ASlashCharacter::EquipPressed (const FInputActionValue &Value)
 }
 
 void
+ASlashCharacter::Attack (const FInputActionValue &Value)
+{
+  UAnimInstance *AnimInstance = GetMesh ()->GetAnimInstance ();
+  if (AnimInstance && AttackMontage)
+    {
+      AnimInstance->Montage_Play (AttackMontage);
+      int32 Selection = FMath::RandRange (0, 2);
+      FName SectionName = FName ();
+
+      switch (Selection)
+        {
+        case 0:
+          SectionName = FName ("Attack1");
+          break;
+
+        case 1:
+          SectionName = FName ("Attack2");
+          break;
+
+        case 2:
+          SectionName = FName ("Attack3");
+          break;
+        }
+
+      AnimInstance->Montage_JumpToSection (SectionName, AttackMontage);
+    }
+}
+
+void
 ASlashCharacter::Tick (float DeltaTime)
 {
   Super::Tick (DeltaTime);
@@ -125,5 +156,8 @@ ASlashCharacter::SetupPlayerInputComponent (
                                           ETriggerEvent::Triggered,
                                           this,
                                           &ASlashCharacter::EquipPressed);
+      EnhancedInputComponent->BindAction (AttackAction,
+                                          ETriggerEvent::Triggered, this,
+                                          &ASlashCharacter::Attack);
     }
 }

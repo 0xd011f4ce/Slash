@@ -16,6 +16,7 @@ class UInputAction;
 class USpringArmComponent;
 class UCameraComponent;
 class UGroomComponent;
+class UAnimMontage;
 
 class AItem;
 
@@ -50,9 +51,13 @@ protected:
   UPROPERTY (EditAnywhere, Category = Input)
   UInputAction *EquipAction;
 
+  UPROPERTY (EditAnywhere, Category = Input)
+  UInputAction *AttackAction;
+
   void Move (const FInputActionValue &Value);
   void Turn (const FInputActionValue &Value);
   void EquipPressed (const FInputActionValue &Value);
+  void Attack (const FInputActionValue &Value);
 
 private:
   ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
@@ -71,6 +76,12 @@ private:
 
   UPROPERTY (VisibleInstanceOnly)
   AItem *OverlappingItem;
+
+  /**
+   * Animation montages
+   */
+  UPROPERTY (EditDefaultsOnly, Category = Montages)
+  UAnimMontage *AttackMontage;
 
   // setters/getters
 public:
