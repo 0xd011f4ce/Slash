@@ -65,10 +65,17 @@ protected:
   /**
    * Play Montage Functions
    */
-  void PlayAttackMontage ();
+  void PlayAttackMontage () const;
+
+  UFUNCTION (BlueprintCallable)
+  void AttackEnd ();
+
+  bool CanAttack () const;
 
 private:
   ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
+
+  UPROPERTY (BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
   EActionState ActionState = EActionState::EAS_Unoccupied;
 
   UPROPERTY (VisibleAnywhere)

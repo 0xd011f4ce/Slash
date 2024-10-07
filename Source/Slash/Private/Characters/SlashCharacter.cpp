@@ -104,7 +104,7 @@ ASlashCharacter::EquipPressed (const FInputActionValue &Value)
 void
 ASlashCharacter::Attack (const FInputActionValue &Value)
 {
-  if (ActionState == EActionState::EAS_Unoccupied)
+  if (CanAttack ())
     {
       PlayAttackMontage ();
       ActionState = EActionState::EAS_Attacking;
@@ -112,7 +112,7 @@ ASlashCharacter::Attack (const FInputActionValue &Value)
 }
 
 void
-ASlashCharacter::PlayAttackMontage ()
+ASlashCharacter::PlayAttackMontage () const
 {
   UAnimInstance *AnimInstance = GetMesh ()->GetAnimInstance ();
   if (AnimInstance && AttackMontage)
@@ -138,6 +138,20 @@ ASlashCharacter::PlayAttackMontage ()
 
       AnimInstance->Montage_JumpToSection (SectionName, AttackMontage);
     }
+}
+
+void
+ASlashCharacter::AttackEnd ()
+{
+  ActionState = EActionState::EAS_Unoccupied;
+}
+
+bool
+ASlashCharacter::CanAttack () const
+{
+  return ActionState == EActionState::EAS_Unoccupied &&
+         CharacterState !=
+         ECharacterState::ECS_Unequipped;
 }
 
 void
