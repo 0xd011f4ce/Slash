@@ -65,6 +65,11 @@ ASlashCharacter::BeginPlay ()
 void
 ASlashCharacter::Move (const FInputActionValue &Value)
 {
+  if (ActionState == EActionState::EAS_Attacking)
+    {
+      return;
+    }
+
   const FVector2D Direction = Value.Get<FVector2D> ();
 
   // find out which way is forward
