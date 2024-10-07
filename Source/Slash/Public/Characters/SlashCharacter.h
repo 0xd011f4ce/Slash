@@ -54,13 +54,22 @@ protected:
   UPROPERTY (EditAnywhere, Category = Input)
   UInputAction *AttackAction;
 
+  /**
+   * Callbacks for input
+   */
   void Move (const FInputActionValue &Value);
   void Turn (const FInputActionValue &Value);
   void EquipPressed (const FInputActionValue &Value);
   void Attack (const FInputActionValue &Value);
 
+  /**
+   * Play Montage Functions
+   */
+  void PlayAttackMontage ();
+
 private:
   ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
+  EActionState ActionState = EActionState::EAS_Unoccupied;
 
   UPROPERTY (VisibleAnywhere)
   USpringArmComponent *SpringArm;
