@@ -103,6 +103,23 @@ ASlashCharacter::EquipPressed (const FInputActionValue &Value)
     {
       OverlappingWeapon->Equip (GetMesh (), FName ("RightHandSocket"));
       CharacterState = ECharacterState::ECS_EquippedOneHandedWeapon;
+
+      EquippedWeapon = OverlappingWeapon;
+      OverlappingItem = nullptr;
+    }
+  else
+    {
+      // if we aren't overlapping a weapon, play the equip/unequip montage if possible
+      if (CanDisarm ())
+        {
+          PlayEquipMontage (FName ("Unequip"));
+          CharacterState = ECharacterState::ECS_Unequipped;
+        }
+      else if (CanArm ())
+        {
+          PlayEquipMontage (FName ("Equip"));
+          CharacterState = ECharacterState::ECS_EquippedOneHandedWeapon;
+        }
     }
 }
 
@@ -146,6 +163,17 @@ ASlashCharacter::PlayAttackMontage () const
 }
 
 void
+ASlashCharacter::PlayEquipMontage (FName SectionName)
+{
+  UAnimInstance *AnimInstance = GetMesh ()->GetAnimInstance ();
+  if (AnimInstance && EquipMontage)
+    {
+      AnimInstance->Montage_Play (EquipMontage);
+      AnimInstance->Montage_JumpToSection (SectionName, EquipMontage);
+    }
+}
+
+void
 ASlashCharacter::AttackEnd ()
 {
   ActionState = EActionState::EAS_Unoccupied;
@@ -157,6 +185,20 @@ ASlashCharacter::CanAttack () const
   return ActionState == EActionState::EAS_Unoccupied &&
          CharacterState !=
          ECharacterState::ECS_Unequipped;
+}
+
+bool
+ASlashCharacter::CanDisarm () const
+{
+  return ActionState == EActionState::EAS_Unoccupied && CharacterState !=
+         ECharacterState::ECS_Unequipped;
+}
+
+bool
+ASlashCharacter::CanArm () const
+{
+  return ActionState == EActionState::EAS_Unoccupied && CharacterState ==
+         ECharacterState::ECS_Unequipped && EquippedWeapon;
 }
 
 void
@@ -182,7 +224,7 @@ ASlashCharacter::SetupPlayerInputComponent (
       EnhancedInputComponent->BindAction (JumpAction, ETriggerEvent::Triggered,
                                           this, &ACharacter::Jump);
       EnhancedInputComponent->BindAction (EquipAction,
-                                          ETriggerEvent::Triggered,
+                                          ETriggerEvent::Started,
                                           this,
                                           &ASlashCharacter::EquipPressed);
       EnhancedInputComponent->BindAction (AttackAction,

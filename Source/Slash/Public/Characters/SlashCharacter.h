@@ -19,6 +19,7 @@ class UGroomComponent;
 class UAnimMontage;
 
 class AItem;
+class AWeapon;
 
 UCLASS ()
 class SLASH_API ASlashCharacter : public ACharacter
@@ -72,6 +73,10 @@ protected:
 
   bool CanAttack () const;
 
+  void PlayEquipMontage (FName SectionName);
+  bool CanDisarm () const;
+  bool CanArm () const;
+
 private:
   ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
 
@@ -93,11 +98,17 @@ private:
   UPROPERTY (VisibleInstanceOnly)
   AItem *OverlappingItem;
 
+  UPROPERTY (VisibleAnywhere, Category = Weapon)
+  AWeapon *EquippedWeapon;
+
   /**
    * Animation montages
    */
   UPROPERTY (EditDefaultsOnly, Category = Montages)
   UAnimMontage *AttackMontage;
+
+  UPROPERTY (EditDefaultsOnly, Category = Montages)
+  UAnimMontage *EquipMontage;
 
   // setters/getters
 public:
