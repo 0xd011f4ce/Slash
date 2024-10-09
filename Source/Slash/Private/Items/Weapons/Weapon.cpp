@@ -4,6 +4,7 @@
 #include "Items/Weapons/Weapon.h"
 
 #include "Components/SphereComponent.h"
+#include "Components/BoxComponent.h"
 
 #include "Kismet/GameplayStatics.h"
 #include "Characters/SlashCharacter.h"
@@ -26,6 +27,12 @@ AWeapon::OnSphereEndOverlap (UPrimitiveComponent *OverlappedComp,
 {
   Super::OnSphereEndOverlap (OverlappedComp, OtherActor, OtherComp,
                              OtherBodyIndex);
+}
+
+AWeapon::AWeapon ()
+{
+  WeaponBox = CreateDefaultSubobject<UBoxComponent> (TEXT ("Weapon Box"));
+  WeaponBox->SetupAttachment (GetRootComponent ());
 }
 
 void

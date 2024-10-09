@@ -7,6 +7,7 @@
 #include "Weapon.generated.h"
 
 class USoundBase;
+class UBoxComponent;
 
 UCLASS ()
 class SLASH_API AWeapon : public AItem
@@ -26,10 +27,15 @@ protected:
                                    int32 OtherBodyIndex) override;
 
 public:
+  AWeapon ();
+
   void Equip (USceneComponent *InParent, FName InSocketName);
   void AttachMeshToSocket (USceneComponent *InParent, FName InSocketName);
 
 private:
   UPROPERTY (EditAnywhere, Category = "Weapon Properties")
   USoundBase *EquipSound;
+
+  UPROPERTY (VisibleAnywhere, Category = "Weapon Properties")
+  UBoxComponent *WeaponBox;
 };
