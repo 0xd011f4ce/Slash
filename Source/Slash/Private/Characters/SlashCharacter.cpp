@@ -2,8 +2,8 @@
 
 #include "Characters/SlashCharacter.h"
 
-#include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 #include "Camera/CameraComponent.h"
 
@@ -50,11 +50,11 @@ ASlashCharacter::BeginPlay ()
 {
   Super::BeginPlay ();
 
-  if (const APlayerController *PlayerController = Cast<APlayerController> (
-      Controller))
+  if (const APlayerController *PlayerController
+      = Cast<APlayerController> (Controller))
     {
-      if (UEnhancedInputLocalPlayerSubsystem *Subsystem =
-          ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem> (
+      if (UEnhancedInputLocalPlayerSubsystem *Subsystem
+          = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem> (
               PlayerController->GetLocalPlayer ()))
         {
           Subsystem->AddMappingContext (SlashContext, 0);
@@ -76,13 +76,13 @@ ASlashCharacter::Move (const FInputActionValue &Value)
   const FRotator ControlRotation = GetControlRotation ();
   const FRotator YawRotation (0.f, ControlRotation.Yaw, 0.f);
 
-  const FVector ForwardDirection = FRotationMatrix (YawRotation).
-      GetUnitAxis (EAxis::X);
+  const FVector ForwardDirection
+      = FRotationMatrix (YawRotation).GetUnitAxis (EAxis::X);
   AddMovementInput (ForwardDirection, Direction.Y);
 
   // find out which way is right
-  const FVector RightDirection = FRotationMatrix (YawRotation).
-      GetUnitAxis (EAxis::Y);
+  const FVector RightDirection
+      = FRotationMatrix (YawRotation).GetUnitAxis (EAxis::Y);
   AddMovementInput (RightDirection, Direction.X);
 }
 
@@ -109,7 +109,8 @@ ASlashCharacter::EquipPressed (const FInputActionValue &Value)
     }
   else
     {
-      // if we aren't overlapping a weapon, play the equip/unequip montage if possible
+      // if we aren't overlapping a weapon, play the equip/unequip montage if
+      // possible
       if (CanDisarm ())
         {
           PlayEquipMontage (FName ("Unequip"));
@@ -184,23 +185,23 @@ ASlashCharacter::AttackEnd ()
 bool
 ASlashCharacter::CanAttack () const
 {
-  return ActionState == EActionState::EAS_Unoccupied &&
-         CharacterState !=
-         ECharacterState::ECS_Unequipped;
+  return ActionState == EActionState::EAS_Unoccupied
+         && CharacterState != ECharacterState::ECS_Unequipped;
 }
 
 bool
 ASlashCharacter::CanDisarm () const
 {
-  return ActionState == EActionState::EAS_Unoccupied && CharacterState !=
-         ECharacterState::ECS_Unequipped;
+  return ActionState == EActionState::EAS_Unoccupied
+         && CharacterState != ECharacterState::ECS_Unequipped;
 }
 
 bool
 ASlashCharacter::CanArm () const
 {
-  return ActionState == EActionState::EAS_Unoccupied && CharacterState ==
-         ECharacterState::ECS_Unequipped && EquippedWeapon;
+  return ActionState == EActionState::EAS_Unoccupied
+         && CharacterState == ECharacterState::ECS_Unequipped
+         && EquippedWeapon;
 }
 
 void
@@ -240,8 +241,8 @@ ASlashCharacter::SetupPlayerInputComponent (
 {
   Super::SetupPlayerInputComponent (PlayerInputComponent);
 
-  if (UEnhancedInputComponent *EnhancedInputComponent = CastChecked<
-    UEnhancedInputComponent> (PlayerInputComponent))
+  if (UEnhancedInputComponent *EnhancedInputComponent
+      = CastChecked<UEnhancedInputComponent> (PlayerInputComponent))
     {
       EnhancedInputComponent->BindAction (MovementAction,
                                           ETriggerEvent::Triggered, this,
@@ -250,8 +251,7 @@ ASlashCharacter::SetupPlayerInputComponent (
                                           this, &ASlashCharacter::Turn);
       EnhancedInputComponent->BindAction (JumpAction, ETriggerEvent::Triggered,
                                           this, &ACharacter::Jump);
-      EnhancedInputComponent->BindAction (EquipAction,
-                                          ETriggerEvent::Started,
+      EnhancedInputComponent->BindAction (EquipAction, ETriggerEvent::Started,
                                           this,
                                           &ASlashCharacter::EquipPressed);
       EnhancedInputComponent->BindAction (AttackAction,
