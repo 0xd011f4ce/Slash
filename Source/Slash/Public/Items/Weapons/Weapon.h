@@ -15,6 +15,8 @@ class SLASH_API AWeapon : public AItem
   GENERATED_BODY ()
 
 protected:
+  virtual void BeginPlay () override;
+
   virtual void OnSphereOverlap (UPrimitiveComponent *OverlappedComponent,
                                 AActor *OtherActor,
                                 UPrimitiveComponent *OtherComp,
@@ -25,6 +27,12 @@ protected:
                                    AActor *OtherActor,
                                    UPrimitiveComponent *OtherComp,
                                    int32 OtherBodyIndex) override;
+
+  UFUNCTION ()
+  void OnBoxOverlap (UPrimitiveComponent *OverlappedComponent,
+                     AActor *OtherActor, UPrimitiveComponent *OtherComp,
+                     int32 OtherBodyIndex, bool bFromSweep,
+                     const FHitResult &SweepResult);
 
 public:
   AWeapon ();
@@ -38,4 +46,10 @@ private:
 
   UPROPERTY (VisibleAnywhere, Category = "Weapon Properties")
   UBoxComponent *WeaponBox;
+
+  UPROPERTY (VisibleAnywhere)
+  USceneComponent *BoxTraceStart;
+
+  UPROPERTY (VisibleAnywhere)
+  USceneComponent *BoxTraceEnd;
 };
