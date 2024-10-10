@@ -34,6 +34,9 @@ public:
   virtual void SetupPlayerInputComponent (
       class UInputComponent *PlayerInputComponent) override;
 
+  UFUNCTION (BlueprintCallable)
+  void SetWeaponCollisionEnabled (ECollisionEnabled::Type CollisionEnabled);
+
 protected:
   virtual void BeginPlay () override;
 
@@ -122,8 +125,14 @@ private:
   // setters/getters
 public:
   FORCEINLINE void
-  SetOverlappingItem (AItem *Item) { OverlappingItem = Item; }
+  SetOverlappingItem (AItem *Item)
+  {
+    OverlappingItem = Item;
+  }
 
   FORCEINLINE ECharacterState
-  GetCharacterState () const { return CharacterState; }
+  GetCharacterState () const
+  {
+    return CharacterState;
+  }
 };

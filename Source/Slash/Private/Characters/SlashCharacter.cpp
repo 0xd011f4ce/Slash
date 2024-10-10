@@ -10,7 +10,9 @@
 #include "Items/Item.h"
 #include "Items/Weapons/Weapon.h"
 
+#include "Components/BoxComponent.h"
 #include "Components/InputComponent.h"
+
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
@@ -257,5 +259,15 @@ ASlashCharacter::SetupPlayerInputComponent (
       EnhancedInputComponent->BindAction (AttackAction,
                                           ETriggerEvent::Triggered, this,
                                           &ASlashCharacter::Attack);
+    }
+}
+
+void
+ASlashCharacter::SetWeaponCollisionEnabled (
+    ECollisionEnabled::Type CollisionEnabled)
+{
+  if (EquippedWeapon && EquippedWeapon->GetWeaponBox ())
+    {
+      EquippedWeapon->GetWeaponBox ()->SetCollisionEnabled (CollisionEnabled);
     }
 }
