@@ -3,8 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "HitInterface.generated.h"
 #include "UObject/Interface.h"
+
+#include "HitInterface.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE (MinimalAPI)
