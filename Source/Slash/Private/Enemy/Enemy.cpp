@@ -75,6 +75,13 @@ AEnemy::GetHit (const FVector &ImpactPoint)
   // Convert from radians to degrees
   Theta = FMath::RadiansToDegrees (Theta);
 
+  // If points down, theta should be negative
+  const FVector CrossProduct = FVector::CrossProduct (Forward, ToHit);
+  if (CrossProduct.Z < 0)
+    {
+      Theta *= -1.f;
+    }
+
   if (GEngine)
     {
       GEngine->AddOnScreenDebugMessage (
@@ -87,4 +94,7 @@ AEnemy::GetHit (const FVector &ImpactPoint)
   UKismetSystemLibrary::DrawDebugArrow (this, GetActorLocation (),
                                         GetActorLocation () + ToHit * 60.f,
                                         5.f, FColor::Green, 5.f);
+  UKismetSystemLibrary::DrawDebugArrow (
+      this, GetActorLocation (), GetActorLocation () + CrossProduct * 100.f,
+      5.f, FColor::Blue, 5.f);
 }
