@@ -26,5 +26,6 @@ class SLASH_API IHitInterface
 public:
   // the = 0 makes the function pure virtual, meaning it must be implemented in
   // a child class
-  virtual void GetHit (const FVector &ImpactPoint) = 0;
+  UFUNCTION (BlueprintNativeEvent)
+  void GetHit (const FVector &ImpactPoint);
 };
