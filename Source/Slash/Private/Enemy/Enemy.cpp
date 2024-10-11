@@ -60,6 +60,12 @@ AEnemy::GetHit (const FVector &ImpactPoint)
 {
   DRAW_SPHERE_COLOR (ImpactPoint, FColor::Orange);
 
+  DirectionalHitReact (ImpactPoint);
+}
+
+void
+AEnemy::DirectionalHitReact (const FVector &ImpactPoint)
+{
   const FVector Forward = GetActorForwardVector ();
   // Lower the impact point to the same Z as the enemy
   const FVector ImpactLowered (ImpactPoint.X, ImpactPoint.Y,
