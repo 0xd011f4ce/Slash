@@ -34,6 +34,9 @@ protected:
                      int32 OtherBodyIndex, bool bFromSweep,
                      const FHitResult &SweepResult);
 
+  UFUNCTION (BlueprintImplementableEvent)
+  void CreateFields (const FVector &FieldLocation);
+
 public:
   AWeapon ();
 
