@@ -3,8 +3,10 @@
 #include "Items/Item.h"
 #include "DrawDebugHelpers.h"
 
-#include "Components/SphereComponent.h"
 #include "Characters/SlashCharacter.h"
+#include "Components/SphereComponent.h"
+
+#include "NiagaraComponent.h"
 
 #include "Slash/DebugMacros.h"
 
@@ -18,6 +20,9 @@ AItem::AItem ()
 
   Sphere = CreateDefaultSubobject<USphereComponent> (TEXT ("Sphere"));
   Sphere->SetupAttachment (GetRootComponent ());
+
+  EmbersEffect = CreateDefaultSubobject<UNiagaraComponent> (TEXT ("Embers"));
+  EmbersEffect->SetupAttachment (GetRootComponent ());
 }
 
 void
@@ -25,8 +30,7 @@ AItem::BeginPlay ()
 {
   Super::BeginPlay ();
 
-  Sphere->OnComponentBeginOverlap.AddDynamic (
-      this, &AItem::OnSphereOverlap);
+  Sphere->OnComponentBeginOverlap.AddDynamic (this, &AItem::OnSphereOverlap);
   Sphere->OnComponentEndOverlap.AddDynamic (this, &AItem::OnSphereEndOverlap);
 }
 
@@ -45,8 +49,8 @@ AItem::TransformedCosine ()
 void
 AItem::OnSphereOverlap (UPrimitiveComponent *OverlappedComponent,
                         AActor *OtherActor, UPrimitiveComponent *OtherComp,
-                        int32 OtherBodyIndex,
-                        bool bFromSweep, const FHitResult &SweepResult)
+                        int32 OtherBodyIndex, bool bFromSweep,
+                        const FHitResult &SweepResult)
 {
   if (ASlashCharacter *SlashCharacter = Cast<ASlashCharacter> (OtherActor))
     {
