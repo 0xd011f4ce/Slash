@@ -9,6 +9,8 @@
 
 #include "Slash/DebugMacros.h"
 
+#include "Components/AttributeComponent.h"
+
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -25,6 +27,9 @@ AEnemy::AEnemy ()
 
   GetCapsuleComponent ()->SetCollisionResponseToChannel (
       ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
+
+  Attributes
+      = CreateDefaultSubobject<UAttributeComponent> (TEXT ("Attributes"));
 }
 
 void
