@@ -45,7 +45,7 @@ AEnemy::BeginPlay ()
 
   if (HealthBarWidget)
     {
-      HealthBarWidget->SetHealthPercent (1.f);
+      HealthBarWidget->SetHealthPercent (Attributes->GetHealthPercent ());
     }
 }
 
@@ -87,6 +87,19 @@ AEnemy::GetHit_Implementation (const FVector &ImpactPoint)
       UGameplayStatics::SpawnEmitterAtLocation (GetWorld (), HitParticles,
                                                 ImpactPoint);
     }
+}
+
+float
+AEnemy::TakeDamage (float DamageAmount, FDamageEvent const &DamageEvent,
+                    AController *EventInstigator, AActor *DamageCauser)
+{
+  if (Attributes && HealthBarWidget)
+    {
+      Attributes->ReceiveDamage (DamageAmount);
+      HealthBarWidget->SetHealthPercent (Attributes->GetHealthPercent ());
+    }
+
+  return DamageAmount;
 }
 
 void

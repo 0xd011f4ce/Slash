@@ -19,17 +19,16 @@ class SLASH_API AEnemy : public ACharacter, public IHitInterface
   GENERATED_BODY ()
 
 public:
-  // Sets default values for this character's properties
   AEnemy ();
-
-  // Called every frame
   virtual void Tick (float DeltaTime) override;
-
-  // Called to bind functionality to input
   virtual void SetupPlayerInputComponent (
       class UInputComponent *PlayerInputComponent) override;
 
   virtual void GetHit_Implementation (const FVector &ImpactPoint) override;
+  virtual float TakeDamage (float DamageAmount,
+                            struct FDamageEvent const &DamageEvent,
+                            class AController *EventInstigator,
+                            AActor *DamageCauser) override;
 
   void DirectionalHitReact (const FVector &ImpactPoint);
 
