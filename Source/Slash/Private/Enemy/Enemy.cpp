@@ -4,7 +4,8 @@
 
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
-#include "Components/WidgetComponent.h"
+
+#include "HUD/HealthBarComponent.h"
 
 #include "Animation/AnimMontage.h"
 
@@ -32,7 +33,7 @@ AEnemy::AEnemy ()
   Attributes
       = CreateDefaultSubobject<UAttributeComponent> (TEXT ("Attributes"));
 
-  HealthBarWidget = CreateDefaultSubobject<UWidgetComponent> (
+  HealthBarWidget = CreateDefaultSubobject<UHealthBarComponent> (
       TEXT ("HealthBarWidgetComponent"));
   HealthBarWidget->SetupAttachment (GetRootComponent ());
 }
@@ -41,6 +42,11 @@ void
 AEnemy::BeginPlay ()
 {
   Super::BeginPlay ();
+
+  if (HealthBarWidget)
+    {
+      HealthBarWidget->SetHealthPercent (1.f);
+    }
 }
 
 void
