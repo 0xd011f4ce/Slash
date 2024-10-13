@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 
+#include "Characters/CharacterTypes.h"
 #include "Interfaces/HitInterface.h"
 
 #include "Enemy.generated.h"
@@ -42,6 +43,9 @@ protected:
    * Play montage functions
    */
   void PlayHitReactMontage (const FName &SectionName);
+
+  UPROPERTY (BlueprintReadOnly)
+  EDeathPose DeathPose = EDeathPose::EDP_Alive;
 
 private:
   UPROPERTY (VisibleAnywhere)
