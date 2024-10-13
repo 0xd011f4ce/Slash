@@ -13,6 +13,7 @@
 class UAnimMontage;
 class UAttributeComponent;
 class UHealthBarComponent;
+class AAIController;
 
 UCLASS ()
 class SLASH_API AEnemy : public ACharacter, public IHitInterface
@@ -74,6 +75,19 @@ private:
 
   UPROPERTY (EditAnywhere)
   double CombatRadius = 500.f;
+
+  /*
+   * Navigation
+   */
+  // Current patrol target
+  UPROPERTY ()
+  AAIController *EnemyController;
+
+  UPROPERTY (EditInstanceOnly, Category = "AI Navigation")
+  AActor *PatrolTarget;
+
+  UPROPERTY (EditInstanceOnly, Category = "AI Navigation")
+  TArray<AActor *> PatrolTargets;
 
 public:
 };
