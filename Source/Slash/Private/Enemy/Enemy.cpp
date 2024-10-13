@@ -65,15 +65,7 @@ AEnemy::BeginPlay ()
       MoveRequest.SetGoalActor (PatrolTarget);
       MoveRequest.SetAcceptanceRadius (15.f);
 
-      FNavPathSharedPtr NavPath;
-
-      EnemyController->MoveTo (MoveRequest, &NavPath);
-      TArray<FNavPathPoint> &PathPoints = NavPath->GetPathPoints ();
-      for (auto &Point : PathPoints)
-        {
-          const FVector &Location = Point.Location;
-          DrawDebugSphere (GetWorld (), Location, 25.f, 12, FColor::Red, true);
-        }
+      EnemyController->MoveTo (MoveRequest);
     }
 }
 
@@ -127,6 +119,14 @@ AEnemy::Die ()
     }
 }
 
+bool
+AEnemy::InTargetRange (AActor *Target, double Radius)
+{
+  const double DistanceToTarget
+      = (Target->GetActorLocation () - GetActorLocation ()).Size ();
+  return DistanceToTarget <= Radius;
+}
+
 void
 AEnemy::PlayHitReactMontage (const FName &SectionName)
 {
@@ -145,16 +145,43 @@ AEnemy::Tick (float DeltaTime)
 
   if (CombatTarget)
     {
-      const double DistanceToTarget
-          = (CombatTarget->GetActorLocation () - GetActorLocation ()).Size ();
-
-      if (DistanceToTarget > CombatRadius)
+      if (!InTargetRange (CombatTarget, CombatRadius))
         {
           CombatTarget = nullptr;
 
           if (HealthBarWidget)
             {
               HealthBarWidget->SetVisibility (false);
+            }
+        }
+    }
+
+  if (PatrolTarget && EnemyController)
+    {
+      if (InTargetRange (PatrolTarget, PatrolRadius))
+        {
+          TArray<AActor *> AvailableTargets;
+          for (auto Target : PatrolTargets)
+            {
+              if (Target != PatrolTarget)
+                {
+                  AvailableTargets.AddUnique (Target);
+                }
+            }
+
+          const int32 TotalTargets = AvailableTargets.Num ();
+
+          if (TotalTargets > 0)
+            {
+              const int32 TargetSelection
+                  = FMath::RandRange (0, TotalTargets - 1);
+              PatrolTarget = AvailableTargets[TargetSelection];
+
+              FAIMoveRequest MoveRequest;
+              MoveRequest.SetGoalActor (PatrolTarget);
+              MoveRequest.SetAcceptanceRadius (15.f);
+
+              EnemyController->MoveTo (MoveRequest);
             }
         }
     }

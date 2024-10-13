@@ -39,6 +39,7 @@ protected:
   virtual void BeginPlay () override;
 
   void Die ();
+  bool InTargetRange (AActor *Target, double Radius);
 
   /*
    * Play montage functions
@@ -75,6 +76,9 @@ private:
 
   UPROPERTY (EditAnywhere)
   double CombatRadius = 500.f;
+
+  UPROPERTY (EditAnywhere)
+  double PatrolRadius = 200.f;
 
   /*
    * Navigation
