@@ -5,6 +5,8 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 
+#include "GameFramework/CharacterMovementComponent.h"
+
 #include "HUD/HealthBarComponent.h"
 
 #include "Animation/AnimMontage.h"
@@ -36,6 +38,11 @@ AEnemy::AEnemy ()
   HealthBarWidget = CreateDefaultSubobject<UHealthBarComponent> (
       TEXT ("HealthBarWidgetComponent"));
   HealthBarWidget->SetupAttachment (GetRootComponent ());
+
+  GetCharacterMovement ()->bOrientRotationToMovement = true;
+  bUseControllerRotationPitch = false;
+  bUseControllerRotationYaw = false;
+  bUseControllerRotationRoll = false;
 }
 
 void
