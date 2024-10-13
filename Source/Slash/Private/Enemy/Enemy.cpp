@@ -45,7 +45,7 @@ AEnemy::BeginPlay ()
 
   if (HealthBarWidget)
     {
-      HealthBarWidget->SetHealthPercent (Attributes->GetHealthPercent ());
+      HealthBarWidget->SetVisibility (false);
     }
 }
 
@@ -89,6 +89,14 @@ AEnemy::Die ()
 
       AnimInstance->Montage_JumpToSection (SectionName, DeathMontage);
     }
+
+  GetCapsuleComponent ()->SetCollisionEnabled (ECollisionEnabled::NoCollision);
+  SetLifeSpan (10.f);
+
+  if (HealthBarWidget)
+    {
+      HealthBarWidget->SetVisibility (false);
+    }
 }
 
 void
@@ -106,6 +114,22 @@ void
 AEnemy::Tick (float DeltaTime)
 {
   Super::Tick (DeltaTime);
+
+  if (CombatTarget)
+    {
+      const double DistanceToTarget
+          = (CombatTarget->GetActorLocation () - GetActorLocation ()).Size ();
+
+      if (DistanceToTarget > CombatRadius)
+        {
+          CombatTarget = nullptr;
+
+          if (HealthBarWidget)
+            {
+              HealthBarWidget->SetVisibility (false);
+            }
+        }
+    }
 }
 
 void
@@ -117,6 +141,11 @@ AEnemy::SetupPlayerInputComponent (UInputComponent *PlayerInputComponent)
 void
 AEnemy::GetHit_Implementation (const FVector &ImpactPoint)
 {
+  if (HealthBarWidget)
+    {
+      HealthBarWidget->SetVisibility (true);
+    }
+
   if (Attributes && Attributes->IsAlive ())
     {
       DirectionalHitReact (ImpactPoint);
@@ -147,6 +176,8 @@ AEnemy::TakeDamage (float DamageAmount, FDamageEvent const &DamageEvent,
       Attributes->ReceiveDamage (DamageAmount);
       HealthBarWidget->SetHealthPercent (Attributes->GetHealthPercent ());
     }
+
+  CombatTarget = EventInstigator->GetPawn ();
 
   return DamageAmount;
 }
