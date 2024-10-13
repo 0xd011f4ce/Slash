@@ -20,6 +20,7 @@
 
 #include "AIController.h"
 #include "Navigation/PathFollowingComponent.h"
+#include "Perception/PawnSensingComponent.h"
 
 AEnemy::AEnemy ()
 {
@@ -35,6 +36,7 @@ AEnemy::AEnemy ()
   GetCapsuleComponent ()->SetCollisionResponseToChannel (
       ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
 
+  // initialise components
   Attributes
       = CreateDefaultSubobject<UAttributeComponent> (TEXT ("Attributes"));
 
@@ -46,6 +48,11 @@ AEnemy::AEnemy ()
   bUseControllerRotationPitch = false;
   bUseControllerRotationYaw = false;
   bUseControllerRotationRoll = false;
+
+  PawnSensing
+      = CreateDefaultSubobject<UPawnSensingComponent> (TEXT ("Pawn Sensing"));
+  PawnSensing->SetPeripheralVisionAngle (45.f);
+  PawnSensing->SightRadius = 4000.f;
 }
 
 void
@@ -60,6 +67,11 @@ AEnemy::BeginPlay ()
 
   EnemyController = Cast<AAIController> (GetController ());
   MoveToTarget (PatrolTarget);
+
+  if (PawnSensing)
+    {
+      PawnSensing->OnSeePawn.AddDynamic (this, &AEnemy::PawnSeen);
+    }
 }
 
 void
@@ -159,6 +171,12 @@ AEnemy::ChoosePatrolTarget ()
     }
 
   return NewPatrolTarget;
+}
+
+void
+AEnemy::PawnSeen (APawn *SeenPawn)
+{
+  UE_LOG (LogTemp, Warning, TEXT ("Pawn Seen"));
 }
 
 void
