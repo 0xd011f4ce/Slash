@@ -4,6 +4,7 @@
 
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/WidgetComponent.h"
 
 #include "Animation/AnimMontage.h"
 
@@ -30,6 +31,10 @@ AEnemy::AEnemy ()
 
   Attributes
       = CreateDefaultSubobject<UAttributeComponent> (TEXT ("Attributes"));
+
+  HealthBarWidget = CreateDefaultSubobject<UWidgetComponent> (
+      TEXT ("HealthBarWidgetComponent"));
+  HealthBarWidget->SetupAttachment (GetRootComponent ());
 }
 
 void
