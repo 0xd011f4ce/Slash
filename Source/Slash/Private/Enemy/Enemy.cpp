@@ -181,11 +181,15 @@ AEnemy::PawnSeen (APawn *SeenPawn)
 
   if (SeenPawn->ActorHasTag (FName ("SlashCharacter")))
     {
-      EnemyState = EEnemyState::EES_Chasing;
       GetWorldTimerManager ().ClearTimer (PatrolTimer);
       GetCharacterMovement ()->MaxWalkSpeed = 300.f;
       CombatTarget = SeenPawn;
-      MoveToTarget (CombatTarget);
+
+      if (EnemyState != EEnemyState::EES_Attacking)
+        {
+          EnemyState = EEnemyState::EES_Chasing;
+          MoveToTarget (CombatTarget);
+        }
     }
 }
 
@@ -251,6 +255,22 @@ AEnemy::CheckCombatTarget ()
       EnemyState = EEnemyState::EES_Patrolling;
       GetCharacterMovement ()->MaxWalkSpeed = 150.f;
       MoveToTarget (PatrolTarget);
+    }
+  else if (!InTargetRange (CombatTarget, AttackRadius)
+           && EnemyState != EEnemyState::EES_Chasing)
+    {
+      // outside attack range, chase character
+      EnemyState = EEnemyState::EES_Chasing;
+      GetCharacterMovement ()->MaxWalkSpeed = 300.f;
+      MoveToTarget (CombatTarget);
+    }
+  else if (InTargetRange (CombatTarget, AttackRadius)
+           && EnemyState != EEnemyState::EES_Attacking)
+    {
+      // inside attack range, attack character
+      EnemyState = EEnemyState::EES_Attacking;
+
+      // TODO: Attack montage
     }
 }
 
