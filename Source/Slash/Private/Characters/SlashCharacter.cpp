@@ -132,9 +132,9 @@ ASlashCharacter::EquipPressed (const FInputActionValue &Value)
 }
 
 void
-ASlashCharacter::Attack (const FInputActionValue &Value)
+ASlashCharacter::Attack ()
 {
-  Super::Attack (Value);
+  Super::Attack ();
 
   if (CanAttack ())
     {

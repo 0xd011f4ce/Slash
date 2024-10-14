@@ -60,7 +60,7 @@ protected:
   void Move (const FInputActionValue &Value);
   void Turn (const FInputActionValue &Value);
   void EquipPressed (const FInputActionValue &Value);
-  virtual void Attack (const FInputActionValue &Value) override;
+  virtual void Attack () override;
 
   /**
    * Play Montage Functions

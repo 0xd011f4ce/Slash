@@ -7,6 +7,8 @@
 
 #include "Items/Weapons/Weapon.h"
 
+#include "Kismet/GameplayStatics.h"
+
 ABaseCharacter::ABaseCharacter ()
 {
   PrimaryActorTick.bCanEverTick = true;
@@ -23,7 +25,7 @@ ABaseCharacter::BeginPlay ()
 }
 
 void
-ABaseCharacter::Attack (const FInputActionValue &Value)
+ABaseCharacter::Attack ()
 {
 }
 
@@ -57,6 +59,12 @@ bool
 ABaseCharacter::CanAttack () const
 {
   return false;
+}
+
+bool
+ABaseCharacter::IsAlive () const
+{
+  return Attributes && Attributes->IsAlive ();
 }
 
 void
@@ -102,11 +110,45 @@ ABaseCharacter::DirectionalHitReact (const FVector &ImpactPoint)
 
   FName Section ("FromBack");
   if (Theta >= -45.f && Theta < 45.f)
-    Section = FName ("FromFront");
+    {
+      Section = FName ("FromFront");
+    }
   else if (Theta >= -135.f && Theta < -45.f)
-    Section = FName ("FromLeft");
+    {
+      Section = FName ("FromLeft");
+    }
   else if (Theta >= 45.f && Theta < 135.f)
-    Section = FName ("FromRight");
+    {
+      Section = FName ("FromRight");
+    }
 
   PlayHitReactMontage (Section);
+}
+
+void
+ABaseCharacter::PlayHitSound (const FVector &ImpactPoint)
+{
+  if (HitSound)
+    {
+      UGameplayStatics::PlaySoundAtLocation (this, HitSound, ImpactPoint);
+    }
+}
+
+void
+ABaseCharacter::SpawnHitParticles (const FVector &ImpactPoint)
+{
+  if (HitParticles && GetWorld ())
+    {
+      UGameplayStatics::SpawnEmitterAtLocation (GetWorld (), HitParticles,
+                                                ImpactPoint);
+    }
+}
+
+void
+ABaseCharacter::HandleDamage (float DamageAmount)
+{
+  if (Attributes)
+    {
+      Attributes->ReceiveDamage (DamageAmount);
+    }
 }

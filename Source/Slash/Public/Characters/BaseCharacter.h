@@ -28,19 +28,21 @@ public:
 
 protected:
   virtual void BeginPlay () override;
-  virtual void Attack (const FInputActionValue &Value);
+  virtual void Attack ();
   virtual void Die ();
 
-  /**
-   * Play Montage Functions
-   */
   virtual void PlayAttackMontage () const;
   void PlayHitReactMontage (const FName &SectionName);
   void DirectionalHitReact (const FVector &ImpactPoint);
+  void PlayHitSound (const FVector &ImpactPoint);
+  void SpawnHitParticles (const FVector &ImpactPoint);
+  virtual void HandleDamage (float DamageAmount);
 
   UFUNCTION (BlueprintCallable)
   virtual void AttackEnd ();
+
   virtual bool CanAttack () const;
+  bool IsAlive () const;
 
   UPROPERTY (VisibleAnywhere, Category = Weapon)
   AWeapon *EquippedWeapon;
@@ -63,6 +65,7 @@ protected:
   UPROPERTY (VisibleAnywhere)
   UAttributeComponent *Attributes;
 
+private:
   UPROPERTY (EditAnywhere, Category = Sound)
   USoundBase *HitSound;
 
