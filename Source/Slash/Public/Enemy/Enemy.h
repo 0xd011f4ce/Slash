@@ -43,6 +43,8 @@ protected:
   bool InTargetRange (AActor *Target, double Radius);
   void MoveToTarget (AActor *Target);
   AActor *ChoosePatrolTarget ();
+  virtual void Attack (const FInputActionValue &Value) override;
+  virtual void PlayAttackMontage () const override;
 
   UFUNCTION ()
   void PawnSeen (APawn *SeenPawn);

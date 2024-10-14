@@ -134,6 +134,8 @@ ASlashCharacter::EquipPressed (const FInputActionValue &Value)
 void
 ASlashCharacter::Attack (const FInputActionValue &Value)
 {
+  Super::Attack (Value);
+
   if (CanAttack ())
     {
       PlayAttackMontage ();
@@ -144,6 +146,8 @@ ASlashCharacter::Attack (const FInputActionValue &Value)
 void
 ASlashCharacter::PlayAttackMontage () const
 {
+  Super::PlayAttackMontage ();
+
   UAnimInstance *AnimInstance = GetMesh ()->GetAnimInstance ();
   if (AnimInstance && AttackMontage)
     {
