@@ -10,7 +10,6 @@
 #include "Items/Item.h"
 #include "Items/Weapons/Weapon.h"
 
-#include "Components/BoxComponent.h"
 #include "Components/InputComponent.h"
 
 #include "EnhancedInputComponent.h"
@@ -22,7 +21,7 @@
 
 ASlashCharacter::ASlashCharacter ()
 {
-  PrimaryActorTick.bCanEverTick = true;
+  PrimaryActorTick.bCanEverTick = false;
 
   bUseControllerRotationPitch = false;
   bUseControllerRotationYaw = false;
@@ -45,6 +44,31 @@ ASlashCharacter::ASlashCharacter ()
   Eyebrows = CreateDefaultSubobject<UGroomComponent> (TEXT ("Eyebrows"));
   Eyebrows->AttachmentName = FString ("head");
   Eyebrows->SetupAttachment (GetMesh ());
+}
+
+void
+ASlashCharacter::SetupPlayerInputComponent (
+    UInputComponent *PlayerInputComponent)
+{
+  Super::SetupPlayerInputComponent (PlayerInputComponent);
+
+  if (UEnhancedInputComponent *EnhancedInputComponent
+      = CastChecked<UEnhancedInputComponent> (PlayerInputComponent))
+    {
+      EnhancedInputComponent->BindAction (MovementAction,
+                                          ETriggerEvent::Triggered, this,
+                                          &ASlashCharacter::Move);
+      EnhancedInputComponent->BindAction (LookAction, ETriggerEvent::Triggered,
+                                          this, &ASlashCharacter::Turn);
+      EnhancedInputComponent->BindAction (JumpAction, ETriggerEvent::Triggered,
+                                          this, &ACharacter::Jump);
+      EnhancedInputComponent->BindAction (EquipAction, ETriggerEvent::Started,
+                                          this,
+                                          &ASlashCharacter::EquipPressed);
+      EnhancedInputComponent->BindAction (AttackAction,
+                                          ETriggerEvent::Triggered, this,
+                                          &ASlashCharacter::Attack);
+    }
 }
 
 void
@@ -105,12 +129,7 @@ ASlashCharacter::EquipPressed (const FInputActionValue &Value)
   AWeapon *OverlappingWeapon = Cast<AWeapon> (OverlappingItem);
   if (OverlappingItem)
     {
-      OverlappingWeapon->Equip (GetMesh (), FName ("RightHandSocket"), this,
-                                this);
-      CharacterState = ECharacterState::ECS_EquippedOneHandedWeapon;
-
-      EquippedWeapon = OverlappingWeapon;
-      OverlappingItem = nullptr;
+      EquipWeapon (OverlappingWeapon);
     }
   else
     {
@@ -118,15 +137,11 @@ ASlashCharacter::EquipPressed (const FInputActionValue &Value)
       // possible
       if (CanDisarm ())
         {
-          PlayEquipMontage (FName ("Unequip"));
-          CharacterState = ECharacterState::ECS_Unequipped;
-          ActionState = EActionState::EAS_EquippingWeapon;
+          Disarm ();
         }
       else if (CanArm ())
         {
-          PlayEquipMontage (FName ("Equip"));
-          CharacterState = ECharacterState::ECS_EquippedOneHandedWeapon;
-          ActionState = EActionState::EAS_EquippingWeapon;
+          Arm ();
         }
     }
 }
@@ -144,14 +159,14 @@ ASlashCharacter::Attack ()
 }
 
 void
-ASlashCharacter::PlayEquipMontage (FName SectionName)
+ASlashCharacter::EquipWeapon (AWeapon *Weapon)
 {
-  UAnimInstance *AnimInstance = GetMesh ()->GetAnimInstance ();
-  if (AnimInstance && EquipMontage)
-    {
-      AnimInstance->Montage_Play (EquipMontage);
-      AnimInstance->Montage_JumpToSection (SectionName, EquipMontage);
-    }
+  Weapon->Equip (GetMesh (), FName ("RightHandSocket"), this,
+                 this);
+  CharacterState = ECharacterState::ECS_EquippedOneHandedWeapon;
+
+  EquippedWeapon = Weapon;
+  OverlappingItem = nullptr;
 }
 
 void
@@ -165,6 +180,17 @@ ASlashCharacter::CanAttack () const
 {
   return ActionState == EActionState::EAS_Unoccupied
          && CharacterState != ECharacterState::ECS_Unequipped;
+}
+
+void
+ASlashCharacter::PlayEquipMontage (FName SectionName)
+{
+  UAnimInstance *AnimInstance = GetMesh ()->GetAnimInstance ();
+  if (AnimInstance && EquipMontage)
+    {
+      AnimInstance->Montage_Play (EquipMontage);
+      AnimInstance->Montage_JumpToSection (SectionName, EquipMontage);
+    }
 }
 
 bool
@@ -185,6 +211,22 @@ ASlashCharacter::CanArm () const
 void
 ASlashCharacter::Disarm ()
 {
+  PlayEquipMontage (FName ("Unequip"));
+  CharacterState = ECharacterState::ECS_Unequipped;
+  ActionState = EActionState::EAS_EquippingWeapon;
+}
+
+void
+ASlashCharacter::Arm ()
+{
+  PlayEquipMontage (FName ("Equip"));
+  CharacterState = ECharacterState::ECS_EquippedOneHandedWeapon;
+  ActionState = EActionState::EAS_EquippingWeapon;
+}
+
+void
+ASlashCharacter::AttachWeaponToBack ()
+{
   if (EquippedWeapon)
     {
       EquippedWeapon->AttachMeshToSocket (GetMesh (), FName ("SpineSocket"));
@@ -192,7 +234,7 @@ ASlashCharacter::Disarm ()
 }
 
 void
-ASlashCharacter::Arm ()
+ASlashCharacter::AttachWeaponToHand ()
 {
   if (EquippedWeapon)
     {
@@ -205,35 +247,4 @@ void
 ASlashCharacter::FinishedEquipping ()
 {
   ActionState = EActionState::EAS_Unoccupied;
-}
-
-void
-ASlashCharacter::Tick (float DeltaTime)
-{
-  Super::Tick (DeltaTime);
-}
-
-void
-ASlashCharacter::SetupPlayerInputComponent (
-    UInputComponent *PlayerInputComponent)
-{
-  Super::SetupPlayerInputComponent (PlayerInputComponent);
-
-  if (UEnhancedInputComponent *EnhancedInputComponent
-      = CastChecked<UEnhancedInputComponent> (PlayerInputComponent))
-    {
-      EnhancedInputComponent->BindAction (MovementAction,
-                                          ETriggerEvent::Triggered, this,
-                                          &ASlashCharacter::Move);
-      EnhancedInputComponent->BindAction (LookAction, ETriggerEvent::Triggered,
-                                          this, &ASlashCharacter::Turn);
-      EnhancedInputComponent->BindAction (JumpAction, ETriggerEvent::Triggered,
-                                          this, &ACharacter::Jump);
-      EnhancedInputComponent->BindAction (EquipAction, ETriggerEvent::Started,
-                                          this,
-                                          &ASlashCharacter::EquipPressed);
-      EnhancedInputComponent->BindAction (AttackAction,
-                                          ETriggerEvent::Triggered, this,
-                                          &ASlashCharacter::Attack);
-    }
 }

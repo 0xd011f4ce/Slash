@@ -13,6 +13,7 @@
 
 class UInputMappingContext;
 class UInputAction;
+class UInputComponent;
 class USpringArmComponent;
 class UCameraComponent;
 class UGroomComponent;
@@ -28,10 +29,8 @@ class SLASH_API ASlashCharacter : public ABaseCharacter
 public:
   ASlashCharacter ();
 
-  virtual void Tick (float DeltaTime) override;
-
   virtual void SetupPlayerInputComponent (
-      class UInputComponent *PlayerInputComponent) override;
+      UInputComponent *PlayerInputComponent) override;
 
 protected:
   virtual void BeginPlay () override;
@@ -63,30 +62,30 @@ protected:
   virtual void Attack () override;
 
   /**
-   * Play Montage Functions
+   * Combat
    */
+  void EquipWeapon (AWeapon *Weapon);
   virtual void AttackEnd () override;
   virtual bool CanAttack () const override;
-
   void PlayEquipMontage (FName SectionName);
   bool CanDisarm () const;
   bool CanArm () const;
-
-  UFUNCTION (BlueprintCallable)
   void Disarm ();
+  void Arm ();
 
   UFUNCTION (BlueprintCallable)
-  void Arm ();
+  void AttachWeaponToBack ();
+
+  UFUNCTION (BlueprintCallable)
+  void AttachWeaponToHand ();
 
   UFUNCTION (BlueprintCallable)
   void FinishedEquipping ();
 
 private:
-  ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
-
-  UPROPERTY (BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-  EActionState ActionState = EActionState::EAS_Unoccupied;
-
+  /*
+   * Components
+   */
   UPROPERTY (VisibleAnywhere)
   USpringArmComponent *SpringArm;
 
@@ -107,6 +106,11 @@ private:
    */
   UPROPERTY (EditDefaultsOnly, Category = Montages)
   UAnimMontage *EquipMontage;
+
+  ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
+
+  UPROPERTY (BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+  EActionState ActionState = EActionState::EAS_Unoccupied;
 
   // setters/getters
 public:

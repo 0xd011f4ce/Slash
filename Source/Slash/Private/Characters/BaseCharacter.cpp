@@ -18,6 +18,9 @@ ABaseCharacter::ABaseCharacter ()
   // initialise components
   Attributes
       = CreateDefaultSubobject<UAttributeComponent> (TEXT ("Attributes"));
+
+  GetCapsuleComponent ()->SetCollisionResponseToChannel (
+      ECC_Camera, ECR_Ignore);
 }
 
 void
