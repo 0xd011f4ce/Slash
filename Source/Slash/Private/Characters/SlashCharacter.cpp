@@ -10,6 +10,7 @@
 #include "Items/Item.h"
 #include "Items/Weapons/Weapon.h"
 
+#include "Components/StaticMeshComponent.h"
 #include "Components/InputComponent.h"
 
 #include "EnhancedInputComponent.h"
@@ -40,6 +41,12 @@ ASlashCharacter::ASlashCharacter ()
   Hair = CreateDefaultSubobject<UGroomComponent> (TEXT ("Hair"));
   Hair->AttachmentName = FString ("head");
   Hair->SetupAttachment (GetMesh ());
+
+  GetMesh ()->SetCollisionObjectType (ECC_WorldDynamic);
+  GetMesh ()->SetCollisionResponseToAllChannels (ECR_Ignore);
+  GetMesh ()->SetCollisionResponseToChannel (ECC_Visibility, ECR_Block);
+  GetMesh ()->SetCollisionResponseToChannel (ECC_WorldDynamic, ECR_Overlap);
+  GetMesh ()->SetGenerateOverlapEvents (true);
 
   Eyebrows = CreateDefaultSubobject<UGroomComponent> (TEXT ("Eyebrows"));
   Eyebrows->AttachmentName = FString ("head");
@@ -72,6 +79,15 @@ ASlashCharacter::SetupPlayerInputComponent (
 }
 
 void
+ASlashCharacter::GetHit_Implementation (const FVector &ImpactPoint)
+{
+  Super::GetHit_Implementation (ImpactPoint);
+
+  PlayHitSound (ImpactPoint);
+  SpawnHitParticles (ImpactPoint);
+}
+
+void
 ASlashCharacter::BeginPlay ()
 {
   Super::BeginPlay ();
@@ -87,7 +103,7 @@ ASlashCharacter::BeginPlay ()
         }
     }
 
-  Tags.Add (FName ("SlashCharacter"));
+  Tags.Add (FName ("EngageableTarget"));
 }
 
 void

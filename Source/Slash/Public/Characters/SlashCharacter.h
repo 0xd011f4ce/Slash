@@ -32,6 +32,8 @@ public:
   virtual void SetupPlayerInputComponent (
       UInputComponent *PlayerInputComponent) override;
 
+  virtual void GetHit_Implementation (const FVector &ImpactPoint) override;
+
 protected:
   virtual void BeginPlay () override;
 

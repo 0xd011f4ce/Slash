@@ -117,6 +117,8 @@ AEnemy::BeginPlay ()
     }
 
   InitialiseEnemy ();
+
+  Tags.Add (FName ("Enemy"));
 }
 
 void
@@ -412,7 +414,7 @@ AEnemy::PawnSeen (APawn *SeenPawn)
       !IsDead () &&
       !IsChasing () &&
       EnemyState < EEnemyState::EES_Attacking &&
-      SeenPawn->ActorHasTag (FName ("SlashCharacter"));
+      SeenPawn->ActorHasTag (FName ("EngageableTarget"));
 
   if (bShouldChaseTarget)
     {

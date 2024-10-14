@@ -16,17 +16,8 @@ class SLASH_API AWeapon : public AItem
 
 protected:
   virtual void BeginPlay () override;
-
-  virtual void OnSphereOverlap (UPrimitiveComponent *OverlappedComponent,
-                                AActor *OtherActor,
-                                UPrimitiveComponent *OtherComp,
-                                int32 OtherBodyIndex, bool bFromSweep,
-                                const FHitResult &SweepResult) override;
-
-  virtual void OnSphereEndOverlap (UPrimitiveComponent *OverlappedComp,
-                                   AActor *OtherActor,
-                                   UPrimitiveComponent *OtherComp,
-                                   int32 OtherBodyIndex) override;
+  void ExecuteGetHit (FHitResult BoxHit);
+  bool ActorIsSameType (AActor *OtherActor);
 
   UFUNCTION ()
   void OnBoxOverlap (UPrimitiveComponent *OverlappedComponent,
@@ -43,10 +34,21 @@ public:
   void Equip (USceneComponent *InParent, FName InSocketName, AActor *NewOwner,
               APawn *NewInstigator);
   void AttachMeshToSocket (USceneComponent *InParent, FName InSocketName);
+  void PlayEquipSound ();
+  void DisableSphereCollision ();
+  void DeactivateEmbers ();
 
   TArray<AActor *> IgnoreActors;
 
 private:
+  void BoxTrace (FHitResult &BoxHit);
+
+  UPROPERTY (EditAnywhere, Category = "Weapon Properties")
+  FVector BoxTraceExtent = FVector (5.f);
+
+  UPROPERTY (EditAnywhere, Category = "Weapon Properties")
+  bool bShowBoxDebug = false;
+
   UPROPERTY (EditAnywhere, Category = "Weapon Properties")
   USoundBase *EquipSound;
 

@@ -56,10 +56,10 @@ protected:
   UAttributeComponent *Attributes;
 
 private:
-  UPROPERTY (EditAnywhere, Category = Sound)
+  UPROPERTY (EditAnywhere, Category = Combat)
   USoundBase *HitSound;
 
-  UPROPERTY (EditAnywhere, Category = VisualEffects)
+  UPROPERTY (EditAnywhere, Category = Combat)
   UParticleSystem *HitParticles;
 
   /**
