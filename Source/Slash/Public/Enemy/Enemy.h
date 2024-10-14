@@ -12,6 +12,7 @@
 class UHealthBarComponent;
 class AAIController;
 class UPawnSensingComponent;
+class AWeapon;
 
 UCLASS ()
 class SLASH_API AEnemy : public ABaseCharacter
@@ -28,9 +29,11 @@ public:
 
   virtual void GetHit_Implementation (const FVector &ImpactPoint) override;
   virtual float TakeDamage (float DamageAmount,
-                            struct FDamageEvent const &DamageEvent,
+                            const struct FDamageEvent &DamageEvent,
                             class AController *EventInstigator,
                             AActor *DamageCauser) override;
+
+  virtual void Destroyed () override;
 
 protected:
   // Called when the game starts or when spawned
@@ -66,6 +69,9 @@ private:
   UPROPERTY (EditAnywhere)
   double PatrolRadius = 200.f;
 
+  UPROPERTY (EditAnywhere)
+  TSubclassOf<AWeapon> WeaponClass;
+
   /*
    * Navigation
    */
@@ -90,5 +96,4 @@ private:
 
   EEnemyState EnemyState = EEnemyState::EES_Patrolling;
 
-public:
 };

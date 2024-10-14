@@ -6,6 +6,8 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 
+#include "Items/Weapons/Weapon.h"
+
 #include "GameFramework/CharacterMovementComponent.h"
 
 #include "HUD/HealthBarComponent.h"
@@ -25,15 +27,15 @@ AEnemy::AEnemy ()
 {
   PrimaryActorTick.bCanEverTick = true;
 
-  GetMesh ()->SetCollisionObjectType (ECollisionChannel::ECC_WorldDynamic);
-  GetMesh ()->SetCollisionResponseToChannel (ECollisionChannel::ECC_Visibility,
-                                             ECollisionResponse::ECR_Block);
-  GetMesh ()->SetCollisionResponseToChannel (ECollisionChannel::ECC_Camera,
-                                             ECollisionResponse::ECR_Ignore);
+  GetMesh ()->SetCollisionObjectType (ECC_WorldDynamic);
+  GetMesh ()->SetCollisionResponseToChannel (ECC_Visibility,
+                                             ECR_Block);
+  GetMesh ()->SetCollisionResponseToChannel (ECC_Camera,
+                                             ECR_Ignore);
   GetMesh ()->SetGenerateOverlapEvents (true);
 
   GetCapsuleComponent ()->SetCollisionResponseToChannel (
-      ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
+      ECC_Camera, ECR_Ignore);
 
   // initialise components
   HealthBarWidget = CreateDefaultSubobject<UHealthBarComponent> (
@@ -67,6 +69,14 @@ AEnemy::BeginPlay ()
   if (PawnSensing)
     {
       PawnSensing->OnSeePawn.AddDynamic (this, &AEnemy::PawnSeen);
+    }
+
+  UWorld *World = GetWorld ();
+  if (World && WeaponClass)
+    {
+      AWeapon *DefaultWeapon = GetWorld ()->SpawnActor<AWeapon> (WeaponClass);
+      DefaultWeapon->Equip (GetMesh (), FName ("RightHandSocket"), this, this);
+      EquippedWeapon = DefaultWeapon;
     }
 }
 
@@ -124,7 +134,9 @@ bool
 AEnemy::InTargetRange (AActor *Target, double Radius)
 {
   if (!Target)
-    return false;
+    {
+      return false;
+    }
 
   const double DistanceToTarget
       = (Target->GetActorLocation () - GetActorLocation ()).Size ();
@@ -135,7 +147,9 @@ void
 AEnemy::MoveToTarget (AActor *Target)
 {
   if (!EnemyController || !Target)
-    return;
+    {
+      return;
+    }
 
   FAIMoveRequest MoveRequest;
   MoveRequest.SetGoalActor (Target);
@@ -173,7 +187,9 @@ void
 AEnemy::PawnSeen (APawn *SeenPawn)
 {
   if (EnemyState == EEnemyState::EES_Chasing)
-    return;
+    {
+      return;
+    }
 
   if (SeenPawn->ActorHasTag (FName ("SlashCharacter")))
     {
@@ -295,7 +311,7 @@ AEnemy::GetHit_Implementation (const FVector &ImpactPoint)
 }
 
 float
-AEnemy::TakeDamage (float DamageAmount, FDamageEvent const &DamageEvent,
+AEnemy::TakeDamage (float DamageAmount, const FDamageEvent &DamageEvent,
                     AController *EventInstigator, AActor *DamageCauser)
 {
   if (Attributes && HealthBarWidget)
@@ -310,4 +326,15 @@ AEnemy::TakeDamage (float DamageAmount, FDamageEvent const &DamageEvent,
   MoveToTarget (CombatTarget);
 
   return DamageAmount;
+}
+
+void
+AEnemy::Destroyed ()
+{
+  Super::Destroyed ();
+
+  if (EquippedWeapon)
+    {
+      EquippedWeapon->Destroy ();
+    }
 }
