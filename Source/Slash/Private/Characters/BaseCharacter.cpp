@@ -3,6 +3,8 @@
 #include "Characters/BaseCharacter.h"
 
 #include "Components/AttributeComponent.h"
+
+#include "Components/CapsuleComponent.h"
 #include "Components/BoxComponent.h"
 
 #include "Items/Weapons/Weapon.h"
@@ -34,9 +36,22 @@ ABaseCharacter::Die ()
 {
 }
 
-void
-ABaseCharacter::PlayAttackMontage () const
+int32
+ABaseCharacter::PlayAttackMontage ()
 {
+  return PlayRandomMontageSection (AttackMontage, AttackMontageSections);
+}
+
+int32
+ABaseCharacter::PlayDeathMontage ()
+{
+  return PlayRandomMontageSection (DeathMontage, DeathMontageSections);
+}
+
+void
+ABaseCharacter::DisableCapsule ()
+{
+  GetCapsuleComponent ()->SetCollisionEnabled (ECollisionEnabled::NoCollision);
 }
 
 void
@@ -151,4 +166,32 @@ ABaseCharacter::HandleDamage (float DamageAmount)
     {
       Attributes->ReceiveDamage (DamageAmount);
     }
+}
+
+void
+ABaseCharacter::PlayMontageSection (UAnimMontage *Montage,
+                                    const FName &SectionName)
+{
+  UAnimInstance *AnimInstance = GetMesh ()->GetAnimInstance ();
+  if (AnimInstance && Montage)
+    {
+      AnimInstance->Montage_Play (Montage);
+      AnimInstance->Montage_JumpToSection (SectionName, Montage);
+    }
+}
+
+int32
+ABaseCharacter::PlayRandomMontageSection (UAnimMontage *Montage,
+                                          const TArray<FName> &SectionNames)
+{
+  if (SectionNames.Num () >= 0)
+    {
+      const int32 MaxSectionIndex = SectionNames.Num () - 1;
+      const int32 Selection = FMath::RandRange (0, MaxSectionIndex);
+      PlayMontageSection (Montage, SectionNames[Selection]);
+
+      return Selection;
+    }
+
+  return -1;
 }

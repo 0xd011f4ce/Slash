@@ -65,8 +65,6 @@ protected:
   /**
    * Play Montage Functions
    */
-  virtual void PlayAttackMontage () const override;
-
   virtual void AttackEnd () override;
   virtual bool CanAttack () const override;
 
