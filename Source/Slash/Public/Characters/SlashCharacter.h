@@ -84,6 +84,9 @@ protected:
   UFUNCTION (BlueprintCallable)
   void FinishedEquipping ();
 
+  UFUNCTION (BlueprintCallable)
+  void HitReactEnd ();
+
 private:
   /*
    * Components

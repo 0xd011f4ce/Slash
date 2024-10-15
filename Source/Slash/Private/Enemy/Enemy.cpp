@@ -91,7 +91,12 @@ AEnemy::GetHit_Implementation (const FVector &ImpactPoint)
 {
   Super::GetHit_Implementation (ImpactPoint);
 
-  ShowHealthBar ();
+  if (!IsDead ())
+    {
+      ShowHealthBar ();
+    }
+
+  ClearPatrolTimer ();
 }
 
 void
@@ -121,6 +126,7 @@ AEnemy::Die ()
   SetLifeSpan (DeathLifeSpan);
   HideHealthBar ();
   GetCharacterMovement ()->bOrientRotationToMovement = false;
+  SetWeaponCollisionEnabled (ECollisionEnabled::NoCollision);
 }
 
 void
