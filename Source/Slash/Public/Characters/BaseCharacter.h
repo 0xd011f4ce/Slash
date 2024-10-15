@@ -25,7 +25,8 @@ public:
 
 protected:
   virtual void BeginPlay () override;
-  virtual void GetHit_Implementation (const FVector &ImpactPoint, AActor *Hitter) override;
+  virtual void GetHit_Implementation (const FVector &ImpactPoint,
+                                      AActor *Hitter) override;
 
   virtual void Attack ();
   virtual void Die ();
@@ -34,12 +35,13 @@ protected:
   void PlayHitSound (const FVector &ImpactPoint);
   void SpawnHitParticles (const FVector &ImpactPoint);
   void DisableCapsule ();
+  virtual bool CanAttack () const;
+  bool IsAlive () const;
 
   virtual int32 PlayAttackMontage ();
   virtual int32 PlayDeathMontage ();
   void PlayHitReactMontage (const FName &SectionName);
-  virtual bool CanAttack () const;
-  bool IsAlive () const;
+  void StopAttackMontage ();
 
   UFUNCTION (BlueprintCallable)
   virtual void AttackEnd ();

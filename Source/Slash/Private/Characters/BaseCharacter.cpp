@@ -88,6 +88,16 @@ ABaseCharacter::PlayHitReactMontage (const FName &SectionName)
 }
 
 void
+ABaseCharacter::StopAttackMontage ()
+{
+  UAnimInstance *AnimInstance = GetMesh ()->GetAnimInstance ();
+  if (AnimInstance && AttackMontage)
+    {
+      AnimInstance->Montage_Stop (.25f, AttackMontage);
+    }
+}
+
+void
 ABaseCharacter::AttackEnd ()
 {
 }

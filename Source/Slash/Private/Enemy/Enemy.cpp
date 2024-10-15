@@ -70,7 +70,15 @@ AEnemy::TakeDamage (float DamageAmount, const FDamageEvent &DamageEvent,
 {
   HandleDamage (DamageAmount);
   CombatTarget = EventInstigator->GetPawn ();
-  ChaseTarget ();
+
+  if (IsInsideAttackRadius ())
+    {
+      EnemyState = EEnemyState::EES_Attacking;
+    }
+  else if (IsOutsideAttackRadius ())
+    {
+      ChaseTarget ();
+    }
 
   return DamageAmount;
 }
@@ -97,6 +105,10 @@ AEnemy::GetHit_Implementation (const FVector &ImpactPoint, AActor *Hitter)
     }
 
   ClearPatrolTimer ();
+  ClearAttackTimer ();
+  SetWeaponCollisionEnabled (ECollisionEnabled::NoCollision);
+
+  StopAttackMontage ();
 }
 
 void
