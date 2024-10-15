@@ -28,7 +28,7 @@ AWeapon::ExecuteGetHit (FHitResult BoxHit)
   if (HitInterface)
     {
       HitInterface->Execute_GetHit (BoxHit.GetActor (),
-                                    BoxHit.ImpactPoint);
+                                    BoxHit.ImpactPoint, GetOwner ());
     }
 }
 

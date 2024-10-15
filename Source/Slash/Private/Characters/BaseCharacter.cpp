@@ -30,13 +30,14 @@ ABaseCharacter::BeginPlay ()
 }
 
 void
-ABaseCharacter::GetHit_Implementation (const FVector &ImpactPoint)
+ABaseCharacter::GetHit_Implementation (const FVector &ImpactPoint,
+                                       AActor *Hitter)
 {
-  IHitInterface::GetHit_Implementation (ImpactPoint);
+  IHitInterface::GetHit_Implementation (ImpactPoint, Hitter);
 
-  if (IsAlive ())
+  if (IsAlive () && Hitter)
     {
-      DirectionalHitReact (ImpactPoint);
+      DirectionalHitReact (Hitter->GetActorLocation ());
     }
   else
     {

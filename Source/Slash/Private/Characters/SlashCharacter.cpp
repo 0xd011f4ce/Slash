@@ -79,11 +79,16 @@ ASlashCharacter::SetupPlayerInputComponent (
 }
 
 void
-ASlashCharacter::GetHit_Implementation (const FVector &ImpactPoint)
+ASlashCharacter::GetHit_Implementation (const FVector &ImpactPoint,
+                                        AActor *Hitter)
 {
-  Super::GetHit_Implementation (ImpactPoint);
+  Super::GetHit_Implementation (ImpactPoint, Hitter);
 
   ActionState = EActionState::EAS_HitReaction;
+
+  // we disable the collision in case the attack is interrupted by a hitreact
+  // and the collision was enabled, but never disabled
+  SetWeaponCollisionEnabled (ECollisionEnabled::NoCollision);
 }
 
 void

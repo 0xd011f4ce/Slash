@@ -27,5 +27,5 @@ public:
   // the = 0 makes the function pure virtual, meaning it must be implemented in
   // a child class
   UFUNCTION (BlueprintNativeEvent)
-  void GetHit (const FVector &ImpactPoint);
+  void GetHit (const FVector &ImpactPoint, AActor *Hitter);
 };
