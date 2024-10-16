@@ -50,9 +50,6 @@ protected:
   virtual int32 PlayDeathMontage () override;
   /* </ABaseCharacter> */
 
-  UPROPERTY (BlueprintReadOnly, Category = Combat)
-  AActor *CombatTarget;
-
   UPROPERTY (BlueprintReadOnly)
   TEnumAsByte<EDeathPose> DeathPose;
 
