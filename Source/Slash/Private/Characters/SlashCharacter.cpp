@@ -91,6 +91,16 @@ ASlashCharacter::GetHit_Implementation (const FVector &ImpactPoint,
   SetWeaponCollisionEnabled (ECollisionEnabled::NoCollision);
 }
 
+float
+ASlashCharacter::TakeDamage (float DamageAmount,
+                             const struct FDamageEvent &DamageEvent,
+                             class AController *EventInstigator,
+                             AActor *DamageCauser)
+{
+  HandleDamage (DamageAmount);
+  return DamageAmount;
+}
+
 void
 ASlashCharacter::BeginPlay ()
 {

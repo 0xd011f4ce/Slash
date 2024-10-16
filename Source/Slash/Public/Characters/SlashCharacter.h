@@ -32,7 +32,12 @@ public:
   virtual void SetupPlayerInputComponent (
       UInputComponent *PlayerInputComponent) override;
 
-  virtual void GetHit_Implementation (const FVector &ImpactPoint, AActor *Hitter) override;
+  virtual void GetHit_Implementation (const FVector &ImpactPoint,
+                                      AActor *Hitter) override;
+  virtual float TakeDamage (float DamageAmount,
+                            const struct FDamageEvent &DamageEvent,
+                            class AController *EventInstigator,
+                            AActor *DamageCauser) override;
 
 protected:
   virtual void BeginPlay () override;
