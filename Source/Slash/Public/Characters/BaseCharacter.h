@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 
+#include "Characters/CharacterTypes.h"
+
 #include "Interfaces/HitInterface.h"
 
 #include "BaseCharacter.generated.h"
@@ -37,6 +39,7 @@ protected:
   void DisableCapsule ();
   virtual bool CanAttack () const;
   bool IsAlive () const;
+  void DisableMeshCollision ();
 
   virtual int32 PlayAttackMontage ();
   virtual int32 PlayDeathMontage ();
@@ -63,6 +66,9 @@ protected:
 
   UPROPERTY (EditAnywhere, Category = Combat)
   double WarpTargetDistance = 75.f;
+
+  UPROPERTY (BlueprintReadOnly)
+  TEnumAsByte<EDeathPose> DeathPose;
 
   /*
    * Components
@@ -98,4 +104,14 @@ private:
 
   UPROPERTY (EditAnywhere, Category = Combat)
   TArray<FName> DeathMontageSections;
+
+public:
+  /**
+   * Getters/setters
+   */
+  FORCEINLINE TEnumAsByte<EDeathPose>
+  GetDeathPose () const
+  {
+    return DeathPose;
+  }
 };

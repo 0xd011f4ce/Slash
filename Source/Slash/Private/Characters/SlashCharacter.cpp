@@ -88,11 +88,14 @@ ASlashCharacter::GetHit_Implementation (const FVector &ImpactPoint,
 {
   Super::GetHit_Implementation (ImpactPoint, Hitter);
 
-  ActionState = EActionState::EAS_HitReaction;
-
   // we disable the collision in case the attack is interrupted by a hitreact
   // and the collision was enabled, but never disabled
   SetWeaponCollisionEnabled (ECollisionEnabled::NoCollision);
+
+  if (Attributes && Attributes->GetHealthPercent () > 0.f)
+    {
+      ActionState = EActionState::EAS_HitReaction;
+    }
 }
 
 float
@@ -270,6 +273,15 @@ ASlashCharacter::Arm ()
   PlayEquipMontage (FName ("Equip"));
   CharacterState = ECharacterState::ECS_EquippedOneHandedWeapon;
   ActionState = EActionState::EAS_EquippingWeapon;
+}
+
+void
+ASlashCharacter::Die ()
+{
+  Super::Die ();
+
+  ActionState = EActionState::EAS_Dead;
+  DisableMeshCollision ();
 }
 
 void

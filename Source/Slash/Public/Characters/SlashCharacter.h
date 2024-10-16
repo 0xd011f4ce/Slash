@@ -82,6 +82,7 @@ protected:
   bool CanArm () const;
   void Disarm ();
   void Arm ();
+  virtual void Die () override;
 
   UFUNCTION (BlueprintCallable)
   void AttachWeaponToBack ();
@@ -144,5 +145,11 @@ public:
   GetCharacterState () const
   {
     return CharacterState;
+  }
+
+  FORCEINLINE EActionState
+  GetActionState () const
+  {
+    return ActionState;
   }
 };
