@@ -40,6 +40,8 @@ public:
                             class AController *EventInstigator,
                             AActor *DamageCauser) override;
 
+  virtual void Jump () override;
+
 protected:
   virtual void BeginPlay () override;
 
@@ -94,7 +96,9 @@ protected:
   void HitReactEnd ();
 
 private:
+  bool Isunoccupied ();
   void InitialiseSlashOverlay ();
+  void SetHUDHealth ();
 
   /*
    * Components

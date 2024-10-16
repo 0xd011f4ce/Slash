@@ -72,7 +72,7 @@ ASlashCharacter::SetupPlayerInputComponent (
       EnhancedInputComponent->BindAction (LookAction, ETriggerEvent::Triggered,
                                           this, &ASlashCharacter::Turn);
       EnhancedInputComponent->BindAction (JumpAction, ETriggerEvent::Triggered,
-                                          this, &ACharacter::Jump);
+                                          this, &ASlashCharacter::Jump);
       EnhancedInputComponent->BindAction (EquipAction, ETriggerEvent::Started,
                                           this,
                                           &ASlashCharacter::EquipPressed);
@@ -102,7 +102,19 @@ ASlashCharacter::TakeDamage (float DamageAmount,
                              AActor *DamageCauser)
 {
   HandleDamage (DamageAmount);
+
+  SetHUDHealth ();
+
   return DamageAmount;
+}
+
+void
+ASlashCharacter::Jump ()
+{
+  if (Isunoccupied ())
+    {
+      Super::Jump ();
+    }
 }
 
 void
@@ -291,6 +303,12 @@ ASlashCharacter::HitReactEnd ()
   ActionState = EActionState::EAS_Unoccupied;
 }
 
+bool
+ASlashCharacter::Isunoccupied ()
+{
+  return ActionState == EActionState::EAS_Unoccupied;
+}
+
 void
 ASlashCharacter::InitialiseSlashOverlay ()
 {
@@ -311,5 +329,14 @@ ASlashCharacter::InitialiseSlashOverlay ()
               SlashOverlay->SetSouls (0);
             }
         }
+    }
+}
+
+void
+ASlashCharacter::SetHUDHealth ()
+{
+  if (SlashOverlay && Attributes)
+    {
+      SlashOverlay->SetHealthBarPercent (Attributes->GetHealthPercent ());
     }
 }
