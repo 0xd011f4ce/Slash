@@ -22,4 +22,11 @@ private:
 
   UPROPERTY ()
   USlashOverlay *SlashOverlay;
+
+public:
+  /**
+   * Setters and getters
+   */
+  FORCEINLINE USlashOverlay *
+  GetSlashOverlay () const { return SlashOverlay; }
 };

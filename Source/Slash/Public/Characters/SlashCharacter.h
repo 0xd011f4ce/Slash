@@ -11,6 +11,7 @@
 
 #include "SlashCharacter.generated.h"
 
+class USlashOverlay;
 class UInputMappingContext;
 class UInputAction;
 class UInputComponent;
@@ -93,6 +94,8 @@ protected:
   void HitReactEnd ();
 
 private:
+  void InitialiseSlashOverlay ();
+
   /*
    * Components
    */
@@ -121,6 +124,9 @@ private:
 
   UPROPERTY (BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
   EActionState ActionState = EActionState::EAS_Unoccupied;
+
+  UPROPERTY ()
+  USlashOverlay *SlashOverlay;
 
   // setters/getters
 public:

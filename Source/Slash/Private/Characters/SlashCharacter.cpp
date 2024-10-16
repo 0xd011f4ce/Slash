@@ -12,11 +12,15 @@
 
 #include "Components/StaticMeshComponent.h"
 #include "Components/InputComponent.h"
+#include "Components/AttributeComponent.h"
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 
 #include "Animation/AnimMontage.h"
+
+#include "HUD/SlashHUD.h"
+#include "HUD/SlashOverlay.h"
 
 #include "GroomComponent.h"
 
@@ -118,6 +122,8 @@ ASlashCharacter::BeginPlay ()
     }
 
   Tags.Add (FName ("EngageableTarget"));
+
+  InitialiseSlashOverlay ();
 }
 
 void
@@ -283,4 +289,27 @@ void
 ASlashCharacter::HitReactEnd ()
 {
   ActionState = EActionState::EAS_Unoccupied;
+}
+
+void
+ASlashCharacter::InitialiseSlashOverlay ()
+{
+  APlayerController *PlayerController = Cast<APlayerController> (
+      GetController ());
+  if (PlayerController)
+    {
+      ASlashHUD *SlashHUD = Cast<ASlashHUD> (PlayerController->GetHUD ());
+      if (SlashHUD)
+        {
+          SlashOverlay = SlashHUD->GetSlashOverlay ();
+          if (SlashOverlay && Attributes)
+            {
+              SlashOverlay->SetHealthBarPercent (
+                  Attributes->GetHealthPercent ());
+              SlashOverlay->SetStaminaBarPercent (1.f);
+              SlashOverlay->SetGold (0);
+              SlashOverlay->SetSouls (0);
+            }
+        }
+    }
 }
