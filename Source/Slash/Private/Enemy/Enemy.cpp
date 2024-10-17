@@ -6,6 +6,7 @@
 #include "Components/SkeletalMeshComponent.h"
 
 #include "Items/Weapons/Weapon.h"
+#include "Items/Soul.h"
 
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -129,6 +130,22 @@ AEnemy::BeginPlay ()
 }
 
 void
+AEnemy::SpawnSoul ()
+{
+  UWorld *World = GetWorld ();
+
+  if (World && SoulClass && Attributes)
+    {
+      ASoul *SpawnedSoul = World->SpawnActor<ASoul> (
+          SoulClass, GetActorLocation (), GetActorRotation ());
+      if (SpawnedSoul)
+        {
+          SpawnedSoul->SetSouls (Attributes->GetSouls ());
+        }
+    }
+}
+
+void
 AEnemy::Die ()
 {
   Super::Die ();
@@ -140,6 +157,7 @@ AEnemy::Die ()
   HideHealthBar ();
   GetCharacterMovement ()->bOrientRotationToMovement = false;
   SetWeaponCollisionEnabled (ECollisionEnabled::NoCollision);
+  SpawnSoul ();
 }
 
 void
