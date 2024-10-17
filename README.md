@@ -5,3 +5,11 @@ learning purposes, as this is my first game made in the engine. You can download
 and here's a little gameplay of the game:
 
 ![](Assets/gameplay.GIF)
+
+## Controls
+
+- **Walk:** WASD
+- **Jump:** Space
+- **Attack:** Left Mouse Button
+- **Pickup Sword:** E
+- **Equip/Unequip:** E
