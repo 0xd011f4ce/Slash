@@ -8,6 +8,8 @@
 #include "Camera/CameraComponent.h"
 
 #include "Items/Item.h"
+#include "Items/Soul.h"
+#include "Items/Treasure.h"
 #include "Items/Weapons/Weapon.h"
 
 #include "Components/StaticMeshComponent.h"
@@ -117,6 +119,39 @@ ASlashCharacter::Jump ()
   if (Isunoccupied ())
     {
       Super::Jump ();
+    }
+}
+
+void
+ASlashCharacter::SetOverlappingItem (AItem *Item)
+{
+  IPickupInterface::SetOverlappingItem (Item);
+
+  OverlappingItem = Item;
+}
+
+void
+ASlashCharacter::AddSouls (ASoul *Soul)
+{
+  IPickupInterface::AddSouls (Soul);
+
+  if (Attributes && SlashOverlay)
+    {
+      Attributes->AddSouls (Soul->GetSouls ());
+      SlashOverlay->SetSouls (Attributes->GetSouls ());
+    }
+}
+
+void
+ASlashCharacter::AddGold (ATreasure *Treasure)
+{
+  IPickupInterface::AddGold (Treasure);
+
+  if (Attributes && SlashOverlay)
+    {
+      Attributes->AddGold (Treasure->GetGold ());
+      SlashOverlay->SetGold (Attributes->GetGold ());
+      UE_LOG (LogTemp, Warning, TEXT ("Pick Up Gold"))
     }
 }
 

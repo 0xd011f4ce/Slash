@@ -5,7 +5,7 @@
 #include "Characters/BaseCharacter.h"
 #include "CoreMinimal.h"
 
-#include "InputActionValue.h"
+#include "Interfaces/PickupInterface.h"
 
 #include "CharacterTypes.h"
 
@@ -23,7 +23,8 @@ class UAnimMontage;
 class AItem;
 
 UCLASS ()
-class SLASH_API ASlashCharacter : public ABaseCharacter
+class SLASH_API ASlashCharacter : public ABaseCharacter,
+                                  public IPickupInterface
 {
   GENERATED_BODY ()
 
@@ -41,6 +42,10 @@ public:
                             AActor *DamageCauser) override;
 
   virtual void Jump () override;
+
+  virtual void SetOverlappingItem (AItem *Item) override;
+  virtual void AddSouls (ASoul *Soul) override;
+  virtual void AddGold (ATreasure *Treasure) override;
 
 protected:
   virtual void BeginPlay () override;
@@ -135,12 +140,6 @@ private:
 
   // setters/getters
 public:
-  FORCEINLINE void
-  SetOverlappingItem (AItem *Item)
-  {
-    OverlappingItem = Item;
-  }
-
   FORCEINLINE ECharacterState
   GetCharacterState () const
   {

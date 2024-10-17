@@ -2,6 +2,8 @@
 
 #include "Items/Soul.h"
 
+#include "Interfaces/PickupInterface.h"
+
 void
 ASoul::OnSphereOverlap (UPrimitiveComponent *OverlappedComponent,
                         AActor *OtherActor, UPrimitiveComponent *OtherComp,
@@ -10,4 +12,14 @@ ASoul::OnSphereOverlap (UPrimitiveComponent *OverlappedComponent,
 {
   Super::OnSphereOverlap (OverlappedComponent, OtherActor, OtherComp,
                           OtherBodyIndex, bFromSweep, SweepResult);
+
+  if (IPickupInterface *PickupInterface = Cast<IPickupInterface> (OtherActor))
+    {
+      PickupInterface->AddSouls (this);
+    }
+
+  SpawnPickupSystem ();
+  SpawnPickupSound ();
+
+  Destroy ();
 }
