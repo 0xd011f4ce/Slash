@@ -67,5 +67,5 @@ protected:
   USphereComponent *Sphere;
 
   UPROPERTY (EditAnywhere)
-  UNiagaraComponent *EmbersEffect;
+  UNiagaraComponent *ItemEffect;
 };
