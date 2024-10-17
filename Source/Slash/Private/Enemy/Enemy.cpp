@@ -414,7 +414,8 @@ AEnemy::PawnSeen (APawn *SeenPawn)
       !IsDead () &&
       !IsChasing () &&
       EnemyState < EEnemyState::EES_Attacking &&
-      SeenPawn->ActorHasTag (FName ("EngageableTarget"));
+      SeenPawn->ActorHasTag (FName ("EngageableTarget")) &&
+      !SeenPawn->ActorHasTag (FName ("Dead"));
 
   if (bShouldChaseTarget)
     {
