@@ -73,4 +73,7 @@ public:
   {
     return WeaponBox;
   }
+
+  FORCEINLINE void
+  SetDamage (float Amount) { Damage = Amount; }
 };

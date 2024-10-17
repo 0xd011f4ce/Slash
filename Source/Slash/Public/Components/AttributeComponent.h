@@ -30,6 +30,9 @@ private:
   float MaxHealth;
 
   UPROPERTY (EditAnywhere, Category = "Actor Attributes")
+  float Strength = 20.f;
+
+  UPROPERTY (EditAnywhere, Category = "Actor Attributes")
   int32 Gold;
 
   UPROPERTY (EditAnywhere, Category = "Actor Attributes")
@@ -50,4 +53,7 @@ public:
 
   FORCEINLINE int32
   GetSouls () const { return Souls; }
+
+  FORCEINLINE float
+  GetStrength () const { return Strength; }
 };
